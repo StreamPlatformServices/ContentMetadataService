@@ -1,0 +1,3 @@
+C:/Users/Tomasz/source/repos/ContentMetadataService/ContentMetadataApi/build/CMakeFiles/ContentMetadataApi.dir
+C:/Users/Tomasz/source/repos/ContentMetadataService/ContentMetadataApi/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Tomasz/source/repos/ContentMetadataService/ContentMetadataApi/build/CMakeFiles/ZERO_CHECK.dir
