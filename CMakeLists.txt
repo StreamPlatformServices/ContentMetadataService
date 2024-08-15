@@ -17,16 +17,21 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add subprojects (libraries)
 add_subdirectory(ContentMetadataApi)
+add_subdirectory(ContentMetadataCore)
+add_subdirectory(ContentMetadataRepository)
 #add_subdirectory(StaticLib)
 
 # Collect all source files from the src folder
 file(GLOB_RECURSE EXECUTABLE_FILES "src/*.cpp" "src/*.h")
 
-# Add the source files to the executable for this project.
+# Add the source files to the executable for this project. (Defines this executable)
 add_executable(ContentMetadataService ${EXECUTABLE_FILES})
 
-# Add the shared include directory
-target_include_directories(ContentMetadataApi PRIVATE "${CMAKE_SOURCE_DIR}/include")
+# Add the shared include and external directory 
+target_include_directories(ContentMetadataService PRIVATE 
+    "${CMAKE_CURRENT_SOURCE_DIR}/../include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../external"
+)
 
 # Static library - collect all files from the StaticLib folder
 #file(GLOB_RECURSE STATIC_LIB_FILES "StaticLib/*.cpp" "StaticLib/*.h")

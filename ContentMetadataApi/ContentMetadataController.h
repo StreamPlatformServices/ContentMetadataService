@@ -1,3 +1,3 @@
 #include "ExportDefinitions.h"
 
-DLL_EXPORT void TestFunction();
+CONTENT_METADATA_API_EXPORT void TestFunction();
