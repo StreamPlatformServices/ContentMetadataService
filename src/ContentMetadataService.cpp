@@ -13,7 +13,6 @@
 #include "../ContentMetadataApi/Visitors/Factories/VisitorFactory.hpp"
 #include "../ContentMetadataApi/HttpServer.hpp"
 
-//TODO: Constexpr
 //TODO: initialize async spdlog and pass throught dependency injection
 //logging in validator
 
@@ -49,11 +48,11 @@ int main()
 
 	auto server = new ContentMetadataApi::HttpServer(std::move(http_data_mapper), std::move(command_selector));
 
-	server->startServer(5050); //TODO: Config.ini
+	server->startServer(5050);
 	std::cout << "Hello CMake." << std::endl;
-	// Pętla nieskończona
+
 	while (true) {
-		std::this_thread::sleep_for(std::chrono::seconds(1)); // Symulacja oczekiwania
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 	server->stopServer();
 	std::cout << "Hello Server." << std::endl;
