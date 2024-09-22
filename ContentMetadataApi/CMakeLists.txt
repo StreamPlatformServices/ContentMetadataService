@@ -15,8 +15,18 @@ target_compile_definitions(ContentMetadataApi PRIVATE BUILD_CONTENT_METADATA_API
 # Add the shared include and external directory 
 target_include_directories(ContentMetadataApi PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/../include"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../external"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../external/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../external/lib"
 )
+
+#link lib
+target_link_libraries(ContentMetadataApi PRIVATE ContentMetadataCore)
+link_directories("${CMAKE_BINARY_DIR}/../ContentMetadataCore")
+
+#target_link_libraries(ContentMetadataApi PRIVATE restinio)
 
 # Set the C++ standard (if required)
 #set_property(TARGET ContentMetadataApi PROPERTY CXX_STANDARD 20)
+
+
+

@@ -12,6 +12,6 @@ target_compile_definitions(ContentMetadataCore PRIVATE BUILD_CONTENT_METADATA_CO
 # Add the shared include and external directory 
 target_include_directories(ContentMetadataCore PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/../include"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../external"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../external/include"
 )
 

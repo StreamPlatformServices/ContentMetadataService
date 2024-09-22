@@ -1,3 +1,3 @@
-#include "ExportDefinitions.h"
+#include "ExportDefinitions.hpp"
 
-DLL_EXPORT void TestFunction();
+//DLL_EXPORT void TestFunction();
