@@ -28,9 +28,12 @@ namespace ContentMetadataApi
                 content_entity.m_license_rules.push_back(m_license_rules_mapper->licenseRulesEntityFrom(license_rules_dto));
             }
 
-            for (auto& content_comments_dto : *a_content_dto.m_content_comments)
+            if (a_content_dto.m_content_comments)
             {
-                content_entity.m_content_comments.push_back(m_content_comment_mapper->contentCommentEntityFrom(content_comments_dto));
+                for (auto& content_comments_dto : *a_content_dto.m_content_comments)
+                {
+                    content_entity.m_content_comments.push_back(m_content_comment_mapper->contentCommentEntityFrom(content_comments_dto));
+                }
             }
 
             content_entity.m_owner_id = a_content_dto.m_owner_id;

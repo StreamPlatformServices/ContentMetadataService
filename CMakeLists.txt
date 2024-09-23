@@ -15,18 +15,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Turn off specific compiler extensions
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# GTest config
-include(FetchContent)
-
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/release-1.12.1.zip
-)
-
-FetchContent_MakeAvailable(googletest)
-
-enable_testing()
-
 # Add subprojects (libraries)
 add_subdirectory(ContentMetadataApi)
 add_subdirectory(ContentMetadataCore)

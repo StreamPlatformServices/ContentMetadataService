@@ -1,0 +1,23 @@
+﻿project(ContentMetadataApi_Tests)
+
+file(GLOB_RECURSE TEST_FILES "*.cpp" "*.hpp")
+
+add_executable(ContentMetadataApi_Tests ${TEST_FILES})
+
+target_include_directories(ContentMetadataApi_Tests PRIVATE 
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../external/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../external/lib"
+)
+
+target_link_libraries(ContentMetadataApi_Tests
+    ContentMetadataApi
+    ContentMetadataCore
+    gtest
+    gtest_main
+)
+
+add_test(NAME ContentMetadataApi_Tests COMMAND ContentMetadataApi_Tests)
+
+
+

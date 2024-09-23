@@ -4,7 +4,7 @@
 message("CMAKE_SOURCE_DIR is set to: ${CMAKE_CURRENT_SOURCE_DIR}")
 
 # Collect all source files from the DynamicLib folder
-file(GLOB_RECURSE CONTENT_METADATA_API_FILES "*.cpp" "*.h")
+file(GLOB_RECURSE CONTENT_METADATA_API_FILES "*.cpp" "*.hpp")
 
 # Create a dynamic library (This target is defined with this command)
 add_library(ContentMetadataApi SHARED ${CONTENT_METADATA_API_FILES})

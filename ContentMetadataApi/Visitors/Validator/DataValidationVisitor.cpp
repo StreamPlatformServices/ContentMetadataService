@@ -1,6 +1,5 @@
 #pragma once
 #include "DataValidationVisitor.hpp"
-#include "../TypeTraits.hpp"
 
 namespace ContentMetadataApi
 {

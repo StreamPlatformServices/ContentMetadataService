@@ -1,7 +1,6 @@
 #pragma once
 #include "JsonDeserializationVisitor.hpp"
 #include "JsonKeys.hpp"
-#include "../TypeTraits.hpp"
 
 namespace ContentMetadataApi
 {
