@@ -27,6 +27,11 @@ namespace ContentMetadataApi
 				m_errors.push_back("Validation Error: ContentDto title cannot be empty.");
 			}
 
+			if (visitable.m_description.empty())
+			{
+				m_errors.push_back("Validation Error: ContentDto description cannot be empty.");
+			}
+
 			if (visitable.m_duration <= 0)
 			{
 				m_errors.push_back("Validation Error: ContentDto duration cannot be negative.");
@@ -64,6 +69,17 @@ namespace ContentMetadataApi
 			{
 				m_errors.push_back("Validation Error: ContentDto image file ID is invalid.");
 			}
+
+			if (visitable.m_upload_time.time_since_epoch().count() <= 0)
+			{
+				m_errors.push_back("Validation Error: ContentDto upload time is invalid.");
+			}
+
+			auto current_time = std::chrono::system_clock::now();
+			if (visitable.m_upload_time > current_time)
+			{
+				m_errors.push_back("Validation Error: ContentDto upload time cannot be in the future.");
+			}
 		}
 
 		void DataValidationVisitor::visit(Dto::ContentCommentDto& visitable)
@@ -87,6 +103,17 @@ namespace ContentMetadataApi
 			{
 				m_errors.push_back("Validation Error: ContentCommentDto content ID is invalid.");
 			}
+
+			if (visitable.m_creation_time.time_since_epoch().count() <= 0)
+			{
+				m_errors.push_back("Validation Error: ContentCommentDto creation time is invalid.");
+			}
+
+			auto current_time = std::chrono::system_clock::now();
+			if (visitable.m_creation_time > current_time)
+			{
+				m_errors.push_back("Validation Error: ContentCommentDto creation time cannot be in the future.");
+			}
 		}
 
 		void DataValidationVisitor::visit(Dto::LicenseRulesDto& visitable)
@@ -106,17 +133,20 @@ namespace ContentMetadataApi
 				m_errors.push_back("Validation Error: LicenseRulesDto type is unknown.");
 			}
 
-			if (!visitable.m_duration.has_value() && visitable.m_type == ContentMetadataCore::Enums::LicenseType::Rent)
+			if (visitable.m_type == ContentMetadataCore::Enums::LicenseType::Rent)
 			{
-				m_errors.push_back("Validation Error: License duration is reuiered for license type RENT.");
-			}
-
-			if (visitable.m_duration.has_value())
-			{
-				auto duration_value = visitable.m_duration.value();
-				if (duration_value == ContentMetadataCore::Enums::LicenseDuration::Unknown)
+				if (!visitable.m_duration.has_value())
 				{
-					m_errors.push_back("Validation Error: LicenseRulesDto duration is unknown.");
+					m_errors.push_back("Validation Error: License duration is reuiered for license type RENT.");
+				}
+
+				if (visitable.m_duration.has_value())
+				{
+					auto duration_value = visitable.m_duration.value();
+					if (duration_value == ContentMetadataCore::Enums::LicenseDuration::Unknown)
+					{
+						m_errors.push_back("Validation Error: LicenseRulesDto duration is unknown.");
+					}
 				}
 			}
 		}

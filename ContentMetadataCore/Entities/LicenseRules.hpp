@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../StdAfx.hpp"
 #include "../Enums/LicenseDuration.hpp"
 #include "../Enums/LicenseType.hpp"

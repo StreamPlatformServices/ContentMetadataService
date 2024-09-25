@@ -159,14 +159,17 @@ namespace ContentMetadataApi
                 license_rules_array.PushBack(rule_value, allocator);
             }
             doc.AddMember(rapidjson::Value(JsonKeys::LICENSE_RULES, allocator), license_rules_array, allocator);
-
-            rapidjson::Value comments_array(rapidjson::kArrayType);
-            for (auto& comment : *a_content_dto.m_content_comments)
+            
+            if (a_content_dto.m_content_comments)
             {
-                auto comment_value = serializeFrom(comment, allocator);
-                comments_array.PushBack(comment_value, allocator);
+                rapidjson::Value comments_array(rapidjson::kArrayType);
+                for (auto& comment : *a_content_dto.m_content_comments)
+                {
+                    auto comment_value = serializeFrom(comment, allocator);
+                    comments_array.PushBack(comment_value, allocator);
+                }
+                doc.AddMember(rapidjson::Value(JsonKeys::CONTENT_COMMENTS, allocator), comments_array, allocator);
             }
-            doc.AddMember(rapidjson::Value(JsonKeys::CONTENT_COMMENTS, allocator), comments_array, allocator);
 
             doc.AddMember(rapidjson::Value(JsonKeys::OWNER_ID, allocator), rapidjson::Value().SetString(boost::uuids::to_string(a_content_dto.m_owner_id).c_str(), allocator), allocator);
             doc.AddMember(rapidjson::Value(JsonKeys::VIDEO_FILE_ID, allocator), rapidjson::Value().SetString(boost::uuids::to_string(a_content_dto.m_video_file_id).c_str(), allocator), allocator);

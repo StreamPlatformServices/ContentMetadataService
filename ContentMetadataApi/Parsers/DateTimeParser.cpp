@@ -19,7 +19,7 @@ namespace ContentMetadataApi
 			ss >> std::get_time(&tm, ISO_8601_DATETIME_FORMAT);
 
 			if (ss.fail()) {
-				throw std::runtime_error("Wrong datetime format. Should met ISO 8601");
+				throw std::invalid_argument("Wrong datetime format. Should met ISO 8601");
 			}
 
 			m_time_point = std::chrono::system_clock::from_time_t(std::mktime(&tm));

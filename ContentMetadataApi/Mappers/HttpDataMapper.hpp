@@ -10,7 +10,7 @@ namespace ContentMetadataApi
 		class CONTENT_METADATA_API_EXPORT HttpDataMapper : public IHttpDataMapper
 		{
 		public:
-			explicit HttpDataMapper(std::unique_ptr<Parsers::IEndpointParser> a_endpoint_parser) noexcept;
+			explicit HttpDataMapper(std::shared_ptr<Parsers::IEndpointParser> a_endpoint_parser) noexcept;
 
 			HttpDataMapper(const HttpDataMapper&) = delete;
 			HttpDataMapper(HttpDataMapper&&) = delete;
@@ -25,7 +25,7 @@ namespace ContentMetadataApi
 			HttpMethod mapMethod(boost::beast::http::verb a_method) const;
 			std::unordered_map<std::string, std::string> mapHeaders(const boost::beast::http::request<boost::beast::http::string_body>& a_request) const;
 
-			std::unique_ptr<Parsers::IEndpointParser> m_endpoint_parser;
+			std::shared_ptr<Parsers::IEndpointParser> m_endpoint_parser;
 		};
 	}
 }

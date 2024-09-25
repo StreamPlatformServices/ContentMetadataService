@@ -15,6 +15,8 @@ target_link_libraries(ContentMetadataApi_Tests
     ContentMetadataCore
     gtest
     gtest_main
+    gmock
+    gmock_main
 )
 
 add_test(NAME ContentMetadataApi_Tests COMMAND ContentMetadataApi_Tests)

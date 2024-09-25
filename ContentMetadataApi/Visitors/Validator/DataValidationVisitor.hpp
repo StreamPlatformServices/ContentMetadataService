@@ -13,7 +13,7 @@ namespace ContentMetadataApi
 {
 	namespace Visitors
 	{
-		class DataValidationVisitor : public IVisitor
+		class CONTENT_METADATA_API_EXPORT DataValidationVisitor : public IVisitor
 		{
 		public:
 			explicit DataValidationVisitor(

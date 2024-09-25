@@ -16,7 +16,7 @@ namespace ContentMetadataApi
 {
 	namespace Visitors
 	{
-		class JsonSerializationVisitor : public IVisitor
+		class CONTENT_METADATA_API_EXPORT JsonSerializationVisitor : public IVisitor
 		{
 		public:
 			explicit JsonSerializationVisitor(

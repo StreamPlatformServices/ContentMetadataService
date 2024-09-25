@@ -16,7 +16,7 @@ namespace ContentMetadataApi
 {
 	namespace Visitors
 	{
-		class JsonDeserializationVisitor : public IVisitor
+		class CONTENT_METADATA_API_EXPORT JsonDeserializationVisitor : public IVisitor
 		{
 
 		public:
@@ -48,7 +48,7 @@ namespace ContentMetadataApi
 
 		private:
 
-			std::string m_json_string;
+			const std::string& m_json_string;
 			std::shared_ptr<Parsers::IDateTimeParser> m_date_time_parser;
 			std::shared_ptr<Parsers::IGuidParser> m_guid_parser;
 		};

@@ -5,8 +5,8 @@ namespace ContentMetadataApi
 {
 	namespace Mappers
 	{        
-        HttpDataMapper::HttpDataMapper(std::unique_ptr<Parsers::IEndpointParser> a_endpoint_parser) noexcept
-            : m_endpoint_parser(std::move(a_endpoint_parser))
+        HttpDataMapper::HttpDataMapper(std::shared_ptr<Parsers::IEndpointParser> a_endpoint_parser) noexcept
+            : m_endpoint_parser(a_endpoint_parser)
         {
         }
 

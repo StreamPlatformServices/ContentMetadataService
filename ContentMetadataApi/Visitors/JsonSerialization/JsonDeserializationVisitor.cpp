@@ -86,7 +86,16 @@ namespace ContentMetadataApi
 
 			if (content_json_value.HasMember(JsonKeys::UUID) && content_json_value[JsonKeys::UUID].IsString())
 			{
-				result.m_uuid = m_guid_parser->parseGuid(content_json_value[JsonKeys::UUID].GetString());
+				try
+				{
+					result.m_uuid = m_guid_parser->parseGuid(content_json_value[JsonKeys::UUID].GetString());
+				}
+				catch (const std::exception& e)
+				{
+					std::stringstream ss;
+					ss << "Invalid uuid exception: " << e.what();
+					throw std::invalid_argument(e.what());
+				}
 			}
 			else
 			{
@@ -104,7 +113,7 @@ namespace ContentMetadataApi
 
 			if (content_json_value.HasMember(JsonKeys::UPLOAD_TIME) && content_json_value[JsonKeys::UPLOAD_TIME].IsString())
 			{
-				auto upload_time_str = content_json_value[JsonKeys::UPLOAD_TIME].GetString();
+				auto&& upload_time_str = content_json_value[JsonKeys::UPLOAD_TIME].GetString();
 				m_date_time_parser->parseIso8601(upload_time_str);
 				result.m_upload_time = m_date_time_parser->getTimePoint();
 			}
@@ -333,7 +342,7 @@ namespace ContentMetadataApi
 			}
 			else
 			{
-				throw std::invalid_argument("License type is requierd!");
+				throw std::invalid_argument("License type is missing or invalid!");
 			}
 
 			if (license_rules_json_value.HasMember(JsonKeys::DURATION) && license_rules_json_value[JsonKeys::DURATION].IsUint())
@@ -346,6 +355,10 @@ namespace ContentMetadataApi
 				}
 
 				result.m_duration = static_cast<ContentMetadataCore::Enums::LicenseDuration>(duration_int);
+			}
+			else
+			{
+				throw std::invalid_argument("License type is missing or invalid!");
 			}
 
 			return result;

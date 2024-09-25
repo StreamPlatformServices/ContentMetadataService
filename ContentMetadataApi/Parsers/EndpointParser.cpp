@@ -25,10 +25,13 @@ namespace ContentMetadataApi
         void EndpointParser::parseRoutingPath(const std::string& a_path)
         {
             boost::split(m_routing_path, a_path, boost::is_any_of("/"), boost::token_compress_on);
+
+            m_routing_path.erase(
+                std::remove_if(m_routing_path.begin(), m_routing_path.end(), [](const std::string& s) { return s.empty(); }),
+                m_routing_path.end()
+            );
         }
 
-        //TODO: UT CASE: std::string query = "param1=value1&param2=&flag&param3=value3&";
-        //TODO: UT CASE: std::string query = "param1=value1&param2=&flag&param3=value3&&s&s&&&=&"; -> this needs to be validated
         void EndpointParser::parseQueryParams(const std::string& a_query)
         {
             std::istringstream query_stream(a_query);

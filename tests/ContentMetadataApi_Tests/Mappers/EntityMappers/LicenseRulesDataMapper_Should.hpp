@@ -8,13 +8,16 @@
 #include <chrono>
 #include <memory>
 
-class LicenseRulesDataMapper_Should : public ::testing::TestWithParam<std::tuple<
-    std::string,       // UUID
-    int,               // Price
-    ContentMetadataCore::Enums::LicenseType, // License type
-    std::optional<ContentMetadataCore::Enums::LicenseDuration> // License duration
-    >>
+namespace ContentMetadataApi_Tests
 {
-protected:
-    std::unique_ptr<ContentMetadataApi::Mappers::ILicenseRulesDataMapper> m_sut = std::make_unique<ContentMetadataApi::Mappers::LicenseRulesDataMapper>();
-};
+    class LicenseRulesDataMapper_Should : public ::testing::TestWithParam<std::tuple<
+        std::string,       // UUID
+        int,               // Price
+        ContentMetadataCore::Enums::LicenseType, // License type
+        std::optional<ContentMetadataCore::Enums::LicenseDuration> // License duration
+        >>
+    {
+    protected:
+        std::unique_ptr<ContentMetadataApi::Mappers::ILicenseRulesDataMapper> m_sut = std::make_unique<ContentMetadataApi::Mappers::LicenseRulesDataMapper>();
+    };
+}

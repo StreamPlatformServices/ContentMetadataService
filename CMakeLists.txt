@@ -20,9 +20,6 @@ add_subdirectory(ContentMetadataApi)
 add_subdirectory(ContentMetadataCore)
 add_subdirectory(ContentMetadataRepository)
 add_subdirectory(tests)
-#add_subdirectory(StaticLib)
-
-
 
 # Collect all source files from the src folder
 file(GLOB_RECURSE EXECUTABLE_FILES "src/*.cpp" "src/*.h")
@@ -36,18 +33,11 @@ target_include_directories(ContentMetadataService PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/external/include"
 )
 
-# Static library - collect all files from the StaticLib folder
-#file(GLOB_RECURSE STATIC_LIB_FILES "StaticLib/*.cpp" "StaticLib/*.h")
-#add_library(MyStaticLib STATIC ${STATIC_LIB_FILES})
-
 # Link the libraries with the project
-target_link_libraries(ContentMetadataService PRIVATE ContentMetadataApi) #TODO: Link dir to the api component link dirs!!!!
-#link lib
+target_link_libraries(ContentMetadataService PRIVATE ContentMetadataApi)
 target_link_libraries(ContentMetadataService PRIVATE ContentMetadataCore)
 link_directories("${CMAKE_BINARY_DIR}/ContentMetadataCore")
 link_directories("${CMAKE_BINARY_DIR}/ContentMetadataApi")
-
-# TODO: Add tests and install targets as needed.
 
 
 #add_custom_command(TARGET ContentMetadataService POST_BUILD

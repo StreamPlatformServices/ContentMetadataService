@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../StdAfx.hpp"
 
 namespace ContentMetadataCore
