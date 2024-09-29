@@ -41,7 +41,8 @@ namespace ContentMetadataApi_Tests
 
         EXPECT_CALL(*m_mock_endpoint_parser, parseEndpoint("/api/v1/resource?query=test")).Times(1);
         EXPECT_CALL(*m_mock_endpoint_parser, getQueryParams()).WillOnce(::testing::Return(std::unordered_map<std::string, std::string>{{"query", "test"}}));
-        EXPECT_CALL(*m_mock_endpoint_parser, getRoutingPath()).WillOnce(::testing::Return(std::vector<std::string>{"api", "v1", "resource"}));
+        EXPECT_CALL(*m_mock_endpoint_parser, getRoutingPath()).WillOnce(::testing::Return(std::vector<std::string>{"v1", "resource"}));
+        EXPECT_CALL(*m_mock_endpoint_parser, getRootEndpoint()).WillOnce(::testing::Return(std::string{ "api" }));
 
         auto http_request = m_sut->httpRequestFrom(beast_request);
 
@@ -49,8 +50,9 @@ namespace ContentMetadataApi_Tests
         EXPECT_EQ(http_request.m_body, "request body");
         EXPECT_EQ(http_request.m_headers["Host"], "localhost");
         EXPECT_EQ(http_request.m_query_params["query"], "test");
-        EXPECT_EQ(http_request.m_routing_path.size(), 3);
-        EXPECT_EQ(http_request.m_routing_path[0], "api");
+        EXPECT_EQ(http_request.m_routing_path.size(), 2);
+        EXPECT_EQ(http_request.m_routing_path[0], "v1");
+        EXPECT_EQ(http_request.m_root_endpoint, "api");
     }
 
     TEST_F(HttpDataMapper_Should, ConvertHttpResponseToBoostBeastResponse) {
@@ -92,7 +94,8 @@ namespace ContentMetadataApi_Tests
         EXPECT_CALL(*m_mock_endpoint_parser, getQueryParams())
             .WillOnce(::testing::Return(std::unordered_map<std::string, std::string>{{"", "test"}, { "flag", "" }, { "param2", "" }}));
         EXPECT_CALL(*m_mock_endpoint_parser, getRoutingPath())
-            .WillOnce(::testing::Return(std::vector<std::string>{"api", "v1", "resource"}));
+            .WillOnce(::testing::Return(std::vector<std::string>{"v1", "resource"}));
+        EXPECT_CALL(*m_mock_endpoint_parser, getRootEndpoint()).WillOnce(::testing::Return(std::string{ "api" }));
 
         auto http_request = m_sut->httpRequestFrom(beast_request);
 
@@ -112,7 +115,8 @@ namespace ContentMetadataApi_Tests
         EXPECT_CALL(*m_mock_endpoint_parser, getQueryParams())
             .WillOnce(::testing::Return(std::unordered_map<std::string, std::string>{}));
         EXPECT_CALL(*m_mock_endpoint_parser, getRoutingPath())
-            .WillOnce(::testing::Return(std::vector<std::string>{"api", "v1", "resource"}));
+            .WillOnce(::testing::Return(std::vector<std::string>{"v1", "resource"}));
+        EXPECT_CALL(*m_mock_endpoint_parser, getRootEndpoint()).WillOnce(::testing::Return(std::string{ "api" }));
 
         auto http_request = m_sut->httpRequestFrom(beast_request);
 

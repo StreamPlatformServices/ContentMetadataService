@@ -161,11 +161,6 @@ namespace ContentMetadataApi
 
 		void DataValidationVisitor::visit(Dto::ContentsDto& visitable)
 		{
-			if (visitable.m_contents.empty())
-			{
-				m_errors.push_back("Validation Error: ContentsDto must contain at least one ContentDto.");
-			}
-
 			for (auto& content : visitable.m_contents)
 			{
 				visit(content); 

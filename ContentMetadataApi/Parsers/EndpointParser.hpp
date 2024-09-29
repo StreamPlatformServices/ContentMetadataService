@@ -18,6 +18,7 @@ namespace ContentMetadataApi
             void parseEndpoint(const std::string& a_endpoint) override;
             std::unordered_map<std::string, std::string> getQueryParams() const noexcept override;
             std::vector<std::string> getRoutingPath() const noexcept override;
+			std::string getRootEndpoint() const noexcept override;
 
         private:
             void parseRoutingPath(const std::string& a_path);
@@ -26,6 +27,7 @@ namespace ContentMetadataApi
 		private:
 			std::unordered_map<std::string, std::string> m_query_params;
 			std::vector<std::string> m_routing_path;
+			std::string m_root_endpoint;
 
 		};
 	}

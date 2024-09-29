@@ -69,9 +69,4 @@ namespace ContentMetadataApi_Tests
     {
     };
 
-    class DataValidationContentsDtoVisitor_Should : public DataValidationVisitor_Should, public ::testing::WithParamInterface <bool>
-    {
-    };
-
-
 }

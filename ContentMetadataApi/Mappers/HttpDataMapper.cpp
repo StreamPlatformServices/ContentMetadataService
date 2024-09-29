@@ -18,9 +18,10 @@ namespace ContentMetadataApi
             http_request.m_body = a_request.body();
 
             m_endpoint_parser->parseEndpoint(a_request.target());
-
-            http_request.m_query_params = m_endpoint_parser->getQueryParams();
+            
+            http_request.m_root_endpoint = m_endpoint_parser->getRootEndpoint();
             http_request.m_routing_path = m_endpoint_parser->getRoutingPath();
+            http_request.m_query_params = m_endpoint_parser->getQueryParams();
 
             return http_request;
         }

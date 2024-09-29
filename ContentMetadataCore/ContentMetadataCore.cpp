@@ -19,7 +19,7 @@ namespace ContentMetadataCore
     {
         std::vector<Entities::Content> entities;
 
-        for (int i = 0; i < limit; ++i)
+        for (int i = 0; i < 5; ++i)
         {
             Entities::Content entity;
             entity.m_uuid = boost::uuids::random_generator()();
@@ -29,6 +29,7 @@ namespace ContentMetadataCore
             entity.m_description = "This is a random description for content " + std::to_string(i + offset);
 
             Entities::LicenseRules license_rules;
+            license_rules.m_uuid = boost::uuids::random_generator()();
             license_rules.m_duration = Enums::LicenseDuration::OneDay;
             license_rules.m_type = Enums::LicenseType::Rent;
             entity.m_license_rules.push_back(license_rules);

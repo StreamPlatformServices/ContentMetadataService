@@ -8,12 +8,13 @@ TEST_F(EndpointParser_Should, ParseRoutingPathCorrectly)
     m_sut->parseEndpoint(endpoint);
 
     auto routing_path = m_sut->getRoutingPath();
+    auto root_endpoint = m_sut->getRootEndpoint();
 
-    ASSERT_EQ(routing_path.size(), 4);
-    EXPECT_EQ(routing_path[0], "api");
-    EXPECT_EQ(routing_path[1], "v1");
-    EXPECT_EQ(routing_path[2], "resource");
-    EXPECT_EQ(routing_path[3], "subresource");
+    ASSERT_EQ(routing_path.size(), 3);
+    EXPECT_EQ(root_endpoint, "api");
+    EXPECT_EQ(routing_path[0], "v1");
+    EXPECT_EQ(routing_path[1], "resource");
+    EXPECT_EQ(routing_path[2], "subresource");
 }
 
 TEST_F(EndpointParser_Should, ParseQueryParamsCorrectly) 
@@ -83,10 +84,11 @@ TEST_F(EndpointParser_Should, HandleNoQueryParamsCorrectly)
 
     auto query_params = m_sut->getQueryParams();
     auto routing_path = m_sut->getRoutingPath();
+    auto root_endpoint = m_sut->getRootEndpoint();
 
     ASSERT_EQ(query_params.size(), 0);
-    ASSERT_EQ(routing_path.size(), 2);
-    EXPECT_EQ(routing_path[0], "api");
-    EXPECT_EQ(routing_path[1], "resource");
+    ASSERT_EQ(routing_path.size(), 1);
+    EXPECT_EQ(root_endpoint, "api");
+    EXPECT_EQ(routing_path[0], "resource");
 }
 

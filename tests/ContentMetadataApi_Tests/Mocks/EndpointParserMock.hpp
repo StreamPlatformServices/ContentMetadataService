@@ -12,6 +12,7 @@ namespace ContentMetadataApi_Tests
             MOCK_METHOD(void, parseEndpoint, (const std::string& a_endpoint), (override));
             MOCK_METHOD((std::unordered_map<std::string, std::string>), getQueryParams, (), (const, noexcept, override));
             MOCK_METHOD(std::vector<std::string>, getRoutingPath, (), (const, noexcept, override));
+            MOCK_METHOD(std::string, getRootEndpoint, (), (const, noexcept, override));
         };
     }
 }

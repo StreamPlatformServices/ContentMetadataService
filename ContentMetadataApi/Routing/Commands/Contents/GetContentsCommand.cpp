@@ -107,13 +107,13 @@ namespace ContentMetadataApi
 			if (it != m_query_params.end())
 			{
 				auto [ptr, ec] = std::from_chars(it->second.data(), it->second.data() + it->second.size(), a_value_out);
-				if (ec == std::errc())
+				if (ec != std::errc())
 				{
-					return true;
+					return false;
 				}
 			}
 
-			return false;
+			return true;
 		}
 	}
 }

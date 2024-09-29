@@ -30,6 +30,12 @@ namespace ContentMetadataApi
                 std::remove_if(m_routing_path.begin(), m_routing_path.end(), [](const std::string& s) { return s.empty(); }),
                 m_routing_path.end()
             );
+
+            if (m_routing_path.size() > 0)
+            {
+                m_root_endpoint = *m_routing_path.begin();
+                m_routing_path.erase(m_routing_path.begin());
+            }
         }
 
         void EndpointParser::parseQueryParams(const std::string& a_query)
@@ -61,6 +67,11 @@ namespace ContentMetadataApi
         std::vector<std::string> EndpointParser::getRoutingPath() const noexcept
         {
             return m_routing_path;
+        }
+
+        std::string EndpointParser::getRootEndpoint() const noexcept
+        {
+            return m_root_endpoint;
         }
 	
 	}

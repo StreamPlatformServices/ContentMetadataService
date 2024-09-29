@@ -149,28 +149,4 @@ namespace ContentMetadataApi_Tests
             boost::uuids::nil_uuid()
         )
     );
-
-    TEST_P(DataValidationContentsDtoVisitor_Should, ValidateContentsDto)
-    {
-        auto has_content = GetParam();
-
-        ContentMetadataApi::Dto::ContentsDto contents_dto;
-
-        if (has_content)
-        {
-            contents_dto.m_contents.push_back(ContentMetadataApi::Dto::ContentDto());
-        }
-
-        m_sut->visit(contents_dto);
-
-        EXPECT_EQ(m_errors.empty(), has_content);
-    }
-
-    INSTANTIATE_TEST_SUITE_P(
-        DataValidationContentsDtoTests,
-        DataValidationContentsDtoVisitor_Should,
-        ::testing::Values(false)
-    );
-
-
 }
