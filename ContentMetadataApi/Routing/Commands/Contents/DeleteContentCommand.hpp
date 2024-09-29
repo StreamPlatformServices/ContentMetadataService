@@ -8,7 +8,7 @@ namespace ContentMetadataApi
 {
 	namespace Routing
 	{
-		class DeleteContentCommand : public ICommand
+		class CONTENT_METADATA_API_EXPORT DeleteContentCommand : public ICommand
 		{
 
 		public:

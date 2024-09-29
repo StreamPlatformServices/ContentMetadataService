@@ -35,7 +35,7 @@ namespace ContentMetadataApi
 			catch (const std::exception& e)
 			{
 				std::cerr << "Add content metadata failed: " << e.what() << std::endl;
-				throw; 
+				throw;
 			}
 
 			content_dto.accept(*validation_visitor);
@@ -48,7 +48,7 @@ namespace ContentMetadataApi
 					std::cerr << error << std::endl;
 				}
 
-				throw;
+				throw std::runtime_error("internal server error");
 			}
 
 			response.m_status_code = HttpStatusCode::Ok; 

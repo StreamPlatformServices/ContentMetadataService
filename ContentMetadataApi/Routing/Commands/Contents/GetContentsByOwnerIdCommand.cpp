@@ -53,7 +53,7 @@ namespace ContentMetadataApi
 					std::cerr << error << std::endl;
 				}
 
-				throw;
+				throw std::runtime_error("internal server error");
 			}
 
 			response.m_status_code = HttpStatusCode::Ok; 

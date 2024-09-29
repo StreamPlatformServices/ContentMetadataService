@@ -10,7 +10,7 @@ namespace ContentMetadataApi
 {
 	namespace Routing
 	{
-		class ContentCommentsCommandFactory : public IHttpCommandFactory
+		class CONTENT_METADATA_API_EXPORT ContentCommentsCommandFactory : public IHttpCommandFactory
 		{
 		public:
 			explicit ContentCommentsCommandFactory(

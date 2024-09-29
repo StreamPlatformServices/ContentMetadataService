@@ -32,8 +32,6 @@ namespace ContentMetadataApi
 			HttpResponse response;
 			std::vector<std::string> validation_errors;
 
-			auto validation_visitor = m_visitor_factory->createDataValidationVisitor(validation_errors);
-
 			int limit = 0;
 			int offset = 0;
 
@@ -77,6 +75,8 @@ namespace ContentMetadataApi
 				throw; 
 			}
 
+			auto validation_visitor = m_visitor_factory->createDataValidationVisitor(validation_errors);
+
 			contents_dto.accept(*validation_visitor);
 
 			if (!validation_errors.empty())
@@ -87,7 +87,7 @@ namespace ContentMetadataApi
 					std::cerr << error << std::endl;
 				}
 
-				throw;
+				throw std::runtime_error("internal server error");
 			}
 
 			response.m_status_code = HttpStatusCode::Ok; 

@@ -1,21 +1,8 @@
 #pragma once
+#include "HttpMethod.hpp"
 
 namespace ContentMetadataApi
 {
-    enum class HttpMethod 
-    {
-        Get,
-        Post,
-        Put,
-        Delete,
-        Patch,
-        Head,
-        Options,
-        Connect,
-        Trace,
-        Unknown 
-    };
-
     struct HttpRequest
     {
         HttpMethod m_method;

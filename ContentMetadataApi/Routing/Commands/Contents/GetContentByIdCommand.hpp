@@ -8,7 +8,7 @@ namespace ContentMetadataApi
 {
 	namespace Routing
 	{
-		class GetContentByIdCommand : public ICommand
+		class CONTENT_METADATA_API_EXPORT GetContentByIdCommand : public ICommand
 		{
 
 		public:
