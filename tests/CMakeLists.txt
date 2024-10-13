@@ -16,6 +16,6 @@ FetchContent_MakeAvailable(googletest)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
 
 add_subdirectory(ContentMetadataApi_Tests) 
-#add_subdirectory(ContentMetadataRepository_Tests) 
+add_subdirectory(ContentMetadataRepository_Tests) 
 add_subdirectory(ContentMetadataCommon_Tests)  
 
