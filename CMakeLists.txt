@@ -15,9 +15,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Turn off specific compiler extensions
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Add pg sql
+#set(PostgreSQL_ROOT "Path/To/PGSql")
+#find_package(PostgreSQL REQUIRED)
+
 # Add subprojects (libraries)
+add_subdirectory(ContentMetadataCommon)
 add_subdirectory(ContentMetadataApi)
 add_subdirectory(ContentMetadataCore)
+add_subdirectory(external/libpqxx)
 add_subdirectory(ContentMetadataRepository)
 add_subdirectory(tests)
 
@@ -27,17 +33,27 @@ file(GLOB_RECURSE EXECUTABLE_FILES "src/*.cpp" "src/*.h")
 # Add the source files to the executable for this project. (Defines this executable)
 add_executable(ContentMetadataService ${EXECUTABLE_FILES})
 
+target_compile_definitions(ContentMetadataService PRIVATE BUILD_CONTENT_METADATA_SERVICE)
+
 # Add the shared include and external directory 
 target_include_directories(ContentMetadataService PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
     "${CMAKE_CURRENT_SOURCE_DIR}/external/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/external/libpqxx/include"
+    "${CMAKE_BINARY_DIR}/external/libpqxx/include"
 )
 
 # Link the libraries with the project
+target_link_libraries(ContentMetadataService PRIVATE ContentMetadataCommon)
 target_link_libraries(ContentMetadataService PRIVATE ContentMetadataApi)
 target_link_libraries(ContentMetadataService PRIVATE ContentMetadataCore)
+target_link_libraries(ContentMetadataService PRIVATE ContentMetadataRepository)
+target_link_libraries(ContentMetadataService PRIVATE pqxx)
+link_directories("${CMAKE_BINARY_DIR}/ContentMetadataCommon")
 link_directories("${CMAKE_BINARY_DIR}/ContentMetadataCore")
 link_directories("${CMAKE_BINARY_DIR}/ContentMetadataApi")
+link_directories("${CMAKE_BINARY_DIR}/ContentMetadataRepository")
+link_directories("${CMAKE_BINARY_DIR}/external/src")
 
 
 #add_custom_command(TARGET ContentMetadataService POST_BUILD

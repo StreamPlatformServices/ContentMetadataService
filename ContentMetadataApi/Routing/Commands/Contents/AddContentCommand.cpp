@@ -67,6 +67,13 @@ namespace ContentMetadataApi
 
 			Dto::GuidDto guid_dto;
 			guid_dto.m_uuid = content_uuid;
+
+			guid_dto.accept(*validation_visitor);
+			if (!validation_errors.empty())
+			{
+				throw std::runtime_error("Internal server error: guid created by server is invalid!");
+			}
+
 			guid_dto.accept(*json_serialization_visitor);
 
 			std::cout << "Finished executing AddContentCommand with success" << std::endl;

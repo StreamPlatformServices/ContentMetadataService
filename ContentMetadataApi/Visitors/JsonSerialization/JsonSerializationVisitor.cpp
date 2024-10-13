@@ -8,7 +8,7 @@ namespace ContentMetadataApi
     {
         JsonSerializationVisitor::JsonSerializationVisitor(
             std::string& a_json_string,
-            std::shared_ptr<Parsers::IDateTimeParser> a_date_time_parser) noexcept
+            std::shared_ptr<ContentMetadataCommon::IDateTimeParser> a_date_time_parser) noexcept
             : m_json_string(a_json_string)
             , m_date_time_parser(a_date_time_parser)
         {

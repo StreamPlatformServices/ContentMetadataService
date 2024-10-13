@@ -1,6 +1,6 @@
 #pragma once
 #include "IVisitorFactory.hpp"
-#include "../../Parsers/IDateTimeParser.hpp"
+#include "../../../ContentMetadataCommon/DateTime/IDateTimeParser.hpp"
 #include "../../Parsers/IGuidParser.hpp"
 
 namespace ContentMetadataApi
@@ -11,7 +11,7 @@ namespace ContentMetadataApi
 		{
 		public:
 			explicit VisitorFactory(
-				std::shared_ptr<Parsers::IDateTimeParser> a_date_time_parser,
+				std::shared_ptr<ContentMetadataCommon::IDateTimeParser> a_date_time_parser,
 				std::shared_ptr<Parsers::IGuidParser> a_guid_parser) noexcept;
 
 			VisitorFactory(const VisitorFactory&) = delete;
@@ -25,7 +25,7 @@ namespace ContentMetadataApi
 			std::unique_ptr<IVisitor> createJsonSerializationVisitor(std::string& a_json_string_output) const override;
 
 		private:
-			std::shared_ptr<Parsers::IDateTimeParser> m_date_time_parser;
+			std::shared_ptr<ContentMetadataCommon::IDateTimeParser> m_date_time_parser;
 			std::shared_ptr<Parsers::IGuidParser> m_guid_parser;
 		};
 	}

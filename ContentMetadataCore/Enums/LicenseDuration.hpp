@@ -6,7 +6,7 @@ namespace ContentMetadataCore
 {
     namespace Enums
     {
-        enum class CONTENT_METADATA_CORE_EXPORT LicenseDuration
+        enum class LicenseDuration
         {
             Unknown,
             OneDay,

@@ -7,7 +7,7 @@
 #include "../../../../ContentMetadataApi/Visitors/JsonSerialization/JsonDeserializationVisitor.hpp"
 #include "../../../../ContentMetadataCore/Enums/LicenseType.hpp"
 #include "../../../../ContentMetadataCore/Enums/LicenseDuration.hpp"
-#include "../../Mocks/DateTimeParserMock.hpp"
+#include "CommonMocks/DateTimeParserMock.hpp"
 #include "../../Mocks/GuidParserMock.hpp"
 
 namespace ContentMetadataApi_Tests
@@ -17,12 +17,12 @@ namespace ContentMetadataApi_Tests
     {
     protected:
         std::shared_ptr<ContentMetadataApi::Visitors::IVisitorFactory> m_visitor_factory;
-        std::shared_ptr<::testing::NiceMock<Mocks::DateTimeParserMock>> m_mock_date_time_parser;
+        std::shared_ptr<::testing::NiceMock<::Mocks::DateTimeParserMock>> m_mock_date_time_parser;
         std::shared_ptr<::testing::NiceMock<Mocks::GuidParserMock>> m_mock_guid_parser;
 
         void SetUp() override
         {
-            m_mock_date_time_parser = std::make_shared<::testing::NiceMock<Mocks::DateTimeParserMock>>();
+            m_mock_date_time_parser = std::make_shared<::testing::NiceMock<::Mocks::DateTimeParserMock>>();
             m_mock_guid_parser = std::make_shared<::testing::NiceMock<Mocks::GuidParserMock>>();
             m_visitor_factory = std::make_shared<ContentMetadataApi::Visitors::VisitorFactory>(m_mock_date_time_parser, m_mock_guid_parser);
         }

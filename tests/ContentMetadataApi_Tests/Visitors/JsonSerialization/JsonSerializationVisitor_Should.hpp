@@ -4,7 +4,7 @@
 #include <gmock/gmock.h>
 #include "../../../../ContentMetadataApi/Visitors/IVisitor.hpp"
 #include "../../../../ContentMetadataApi/Visitors/JsonSerialization/JsonSerializationVisitor.hpp"
-#include "../../Mocks/DateTimeParserMock.hpp"
+#include "CommonMocks/DateTimeParserMock.hpp"
 #include <rapidjson/document.h>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
@@ -15,7 +15,7 @@ namespace ContentMetadataApi_Tests
     {
     protected:
         std::string m_json_output;
-        std::shared_ptr<::testing::NiceMock<Mocks::DateTimeParserMock>> m_mock_date_time_parser;
+        std::shared_ptr<::testing::NiceMock<::Mocks::DateTimeParserMock>> m_mock_date_time_parser;
         std::unique_ptr<ContentMetadataApi::Visitors::IVisitor> m_sut;
 
         void SetUp() override

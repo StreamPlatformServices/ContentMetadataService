@@ -20,8 +20,9 @@ target_include_directories(ContentMetadataApi PRIVATE
 )
 
 #link lib
-target_link_libraries(ContentMetadataApi PRIVATE ContentMetadataCore)
+target_link_libraries(ContentMetadataApi PRIVATE ContentMetadataCore ContentMetadataCommon)
 link_directories("${CMAKE_BINARY_DIR}/../ContentMetadataCore")
+link_directories("${CMAKE_BINARY_DIR}/../ContentMetadataCommon")
 
 #target_link_libraries(ContentMetadataApi PRIVATE restinio)
 

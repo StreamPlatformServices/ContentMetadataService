@@ -54,7 +54,7 @@ namespace ContentMetadataApi
 			{
 				content_uuid = co_await m_content_comments_contract->addContentCommentAsync(content_comment_entity);
 			}
-			catch (const std::exception& e)//TODO: Specify the exception and the message. (After implementing Repository) [All Commands!]
+			catch (const std::exception& e)
 			{
 				std::cerr << "Add content comment failed: " << e.what() << std::endl;
 				throw; 
@@ -66,6 +66,13 @@ namespace ContentMetadataApi
 			auto json_serialization_visitor = m_visitor_factory->createJsonSerializationVisitor(response.m_body);
 			Dto::GuidDto guid_dto;
 			guid_dto.m_uuid = content_uuid;
+
+			guid_dto.accept(*validation_visitor);
+			if (!validation_errors.empty())
+			{
+				throw std::runtime_error("Internal server error: guid created by server is invalid!");
+			}
+
 			guid_dto.accept(*json_serialization_visitor);
 
 			std::cout << "Finished executing AddContentCommentCommand with success" << std::endl;

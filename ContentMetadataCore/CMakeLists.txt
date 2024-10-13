@@ -4,7 +4,7 @@
 file(GLOB_RECURSE CONTENT_METADATA_CORE_FILES "*.cpp" "*.h")
 
 # Create a dynamic library
-add_library(ContentMetadataCore SHARED ${CONTENT_METADATA_CORE_FILES})
+add_library(ContentMetadataCore STATIC ${CONTENT_METADATA_CORE_FILES})
 
 # Add the definition for the BUILD_DLL macro to indicate we are compiling the DLL
 target_compile_definitions(ContentMetadataCore PRIVATE BUILD_CONTENT_METADATA_CORE)

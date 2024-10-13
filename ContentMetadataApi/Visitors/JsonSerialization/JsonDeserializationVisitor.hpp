@@ -1,6 +1,6 @@
 #pragma once
 #include "../IVisitor.hpp"
-#include "../../Parsers/IDateTimeParser.hpp"
+#include "../../../ContentMetadataCommon/DateTime/IDateTimeParser.hpp"
 #include "../../Parsers/IGuidParser.hpp"
 #include "../../DataTransferObjects/ContentDto.hpp"
 #include "../../DataTransferObjects/ContentCommentDto.hpp"
@@ -22,7 +22,7 @@ namespace ContentMetadataApi
 		public:
 			explicit JsonDeserializationVisitor(
 				const std::string& a_json_string,
-				std::shared_ptr<Parsers::IDateTimeParser> a_date_time_parser,
+				std::shared_ptr<ContentMetadataCommon::IDateTimeParser> a_date_time_parser,
 				std::shared_ptr<Parsers::IGuidParser> a_guid_parser) noexcept;
 
 			JsonDeserializationVisitor(const JsonDeserializationVisitor&) = delete;
@@ -49,7 +49,7 @@ namespace ContentMetadataApi
 		private:
 
 			const std::string& m_json_string;
-			std::shared_ptr<Parsers::IDateTimeParser> m_date_time_parser;
+			std::shared_ptr<ContentMetadataCommon::IDateTimeParser> m_date_time_parser;
 			std::shared_ptr<Parsers::IGuidParser> m_guid_parser;
 		};
 	}

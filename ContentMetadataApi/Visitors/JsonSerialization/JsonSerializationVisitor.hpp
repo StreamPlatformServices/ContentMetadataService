@@ -5,7 +5,7 @@
 #include <rapidjson/writer.h>
 #include "../IVisitor.hpp"
 #include "../../DataTransferObjects/ContentDto.hpp"
-#include "../../Parsers/IDateTimeParser.hpp"
+#include "../../../ContentMetadataCommon/DateTime/IDateTimeParser.hpp"
 #include "../../DataTransferObjects/ContentCommentDto.hpp"
 #include "../../DataTransferObjects/LicenseRulesDto.hpp"
 #include "../../DataTransferObjects/GuidDto.hpp"
@@ -21,7 +21,7 @@ namespace ContentMetadataApi
 		public:
 			explicit JsonSerializationVisitor(
 				std::string& a_json_string,
-				std::shared_ptr<Parsers::IDateTimeParser> a_date_time_parser) noexcept;
+				std::shared_ptr<ContentMetadataCommon::IDateTimeParser> a_date_time_parser) noexcept;
 
 			JsonSerializationVisitor(const JsonSerializationVisitor&) = delete;
 			JsonSerializationVisitor(JsonSerializationVisitor&&) = delete;
@@ -43,7 +43,7 @@ namespace ContentMetadataApi
 
 		private:
 			std::string& m_json_string;
-			std::shared_ptr<Parsers::IDateTimeParser> m_date_time_parser;
+			std::shared_ptr<ContentMetadataCommon::IDateTimeParser> m_date_time_parser;
 		};
 	}
 }

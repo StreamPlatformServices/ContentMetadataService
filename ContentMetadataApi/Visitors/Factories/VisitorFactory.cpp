@@ -8,7 +8,7 @@ namespace ContentMetadataApi
     namespace Visitors
     {
         VisitorFactory::VisitorFactory(
-            std::shared_ptr<Parsers::IDateTimeParser> a_date_time_parser,
+            std::shared_ptr<ContentMetadataCommon::IDateTimeParser> a_date_time_parser,
             std::shared_ptr<Parsers::IGuidParser> a_guid_parser) noexcept
             : m_date_time_parser(a_date_time_parser)
             , m_guid_parser(a_guid_parser)

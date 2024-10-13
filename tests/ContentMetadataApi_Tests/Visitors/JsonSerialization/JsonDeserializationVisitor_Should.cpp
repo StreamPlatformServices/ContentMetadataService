@@ -8,43 +8,75 @@ namespace ContentMetadataApi_Tests
         auto [uuid_str, title, description, duration, owner_id, video_file_id, image_file_id, upload_time] = GetParam();
 
         auto license_rule_uuid_str = std::string("44ee6677-8899-aabb-ccdd-eeff0f334455");
+        auto comment_uuid_str = std::string("123e4567-e89b-12d3-a456-426614174000");
+        auto comment_creation_time = std::string("2024-09-25T15:30:00Z");
+        auto comment_user_name = std::string("john_doe");
 
         std::string license_rules_json = R"([{
-            "uuid": ")" + license_rule_uuid_str + R"(",
-            "price": 50,
-            "type": 2,
-            "duration": 1
-        }
-        ])";
+        "uuid": ")" + license_rule_uuid_str + R"(",
+        "price": 50,
+        "type": 2,
+        "duration": 1
+    }
+    ])";
 
+        std::string content_comments_json = R"([{
+        "uuid": ")" + comment_uuid_str + R"(",
+        "body": "This is a comment on the content.",
+        "creation_time": ")" + comment_creation_time + R"(",
+        "content_id": ")" + uuid_str + R"(",
+        "user_name": ")" + comment_user_name + R"("
+    }
+    ])";
 
         auto json_input = R"({
-            "uuid": ")" + uuid_str + R"(",
-            "title": ")" + title + R"(",
-            "description": ")" + description + R"(",
-            "duration": )" + std::to_string(duration) + R"(,
-            "owner_id": ")" + owner_id + R"(",
-            "video_file_id": ")" + video_file_id + R"(",
-            "image_file_id": ")" + image_file_id + R"(",
-            "upload_time": ")" + upload_time + R"(",
-            "license_rules": )" + license_rules_json + R"(
-        })";
+        "uuid": ")" + uuid_str + R"(",
+        "title": ")" + title + R"(",
+        "description": ")" + description + R"(",
+        "duration": )" + std::to_string(duration) + R"(,
+        "owner_id": ")" + owner_id + R"(",
+        "video_file_id": ")" + video_file_id + R"(",
+        "image_file_id": ")" + image_file_id + R"(",
+        "upload_time": ")" + upload_time + R"(",
+        "license_rules": )" + license_rules_json + R"(,
+        "content_comments": )" + content_comments_json + R"(
+    })";
 
         auto sut = m_visitor_factory->createJsonDeserializationVisitor(json_input);
 
         ContentMetadataApi::Dto::ContentDto content_dto;
 
-        EXPECT_CALL(*m_mock_guid_parser, parseGuid(uuid_str)).WillOnce(::testing::Return(boost::uuids::string_generator()(uuid_str)));
-        EXPECT_CALL(*m_mock_guid_parser, parseGuid(owner_id)).WillOnce(::testing::Return(boost::uuids::string_generator()(owner_id)));
-        EXPECT_CALL(*m_mock_guid_parser, parseGuid(video_file_id)).WillOnce(::testing::Return(boost::uuids::string_generator()(video_file_id)));
-        EXPECT_CALL(*m_mock_guid_parser, parseGuid(image_file_id)).WillOnce(::testing::Return(boost::uuids::string_generator()(image_file_id)));
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(uuid_str))
+            .WillOnce(::testing::Return(boost::uuids::string_generator()(uuid_str)))
+            .WillOnce(::testing::Return(boost::uuids::string_generator()(uuid_str)));
 
-        EXPECT_CALL(*m_mock_date_time_parser, parseIso8601(upload_time)).Times(1);
-        EXPECT_CALL(*m_mock_date_time_parser, getTimePoint()).WillOnce(::testing::Return(stringToTimePoint(upload_time)));
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(license_rule_uuid_str))
+            .WillOnce(::testing::Return(boost::uuids::string_generator()(license_rule_uuid_str)));
 
-        
-        EXPECT_CALL(*m_mock_guid_parser, parseGuid(license_rule_uuid_str)).WillOnce(::testing::Return(boost::uuids::string_generator()(license_rule_uuid_str)));
-        
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(comment_uuid_str))
+            .WillOnce(::testing::Return(boost::uuids::string_generator()(comment_uuid_str)));
+
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(owner_id))
+            .WillOnce(::testing::Return(boost::uuids::string_generator()(owner_id)));
+
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(video_file_id))
+            .WillOnce(::testing::Return(boost::uuids::string_generator()(video_file_id)));
+
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(image_file_id))
+            .WillOnce(::testing::Return(boost::uuids::string_generator()(image_file_id)));
+
+        ::testing::Sequence s1, s2;
+
+        EXPECT_CALL(*m_mock_date_time_parser, parseIso8601(upload_time)).Times(1).InSequence(s1);
+        EXPECT_CALL(*m_mock_date_time_parser, getTimePoint())
+            .InSequence(s1)
+            .WillOnce(::testing::Return(stringToTimePoint(upload_time)));
+
+        EXPECT_CALL(*m_mock_date_time_parser, parseIso8601(comment_creation_time)).Times(1).InSequence(s2);
+        EXPECT_CALL(*m_mock_date_time_parser, getTimePoint())
+            .InSequence(s2)
+            .WillOnce(::testing::Return(stringToTimePoint(comment_creation_time)));
+
         sut->visit(content_dto);
 
         EXPECT_EQ(content_dto.m_uuid, boost::uuids::string_generator()(uuid_str));
@@ -58,6 +90,14 @@ namespace ContentMetadataApi_Tests
         EXPECT_EQ(license_rule.m_price, 50);
         EXPECT_EQ(static_cast<int>(license_rule.m_type), static_cast<int>(ContentMetadataCore::Enums::LicenseType::Rent));
         EXPECT_EQ(static_cast<int>(license_rule.m_duration.value()), static_cast<int>(ContentMetadataCore::Enums::LicenseDuration::OneDay));
+
+        ASSERT_EQ(content_dto.m_content_comments->size(), 1);
+        const auto& comment = (*content_dto.m_content_comments)[0];
+        EXPECT_EQ(comment.m_uuid, boost::uuids::string_generator()(comment_uuid_str));
+        EXPECT_EQ(comment.m_body, "This is a comment on the content.");
+        EXPECT_EQ(comment.m_creation_time, stringToTimePoint(comment_creation_time));
+        EXPECT_EQ(comment.m_content_id, boost::uuids::string_generator()(uuid_str));
+        EXPECT_EQ(comment.m_user_name, comment_user_name);
     }
 
     INSTANTIATE_TEST_SUITE_P(

@@ -3,16 +3,16 @@
 
 namespace ContentMetadataCore
 {
-    class CONTENT_METADATA_CORE_EXPORT IContentsContract
+    class IContentsContract
     {
     public:
         virtual ~IContentsContract() = default;
 
-        virtual boost::asio::awaitable<std::vector<Entities::Content>> getAllContentsAsync(int limit, int offset) = 0;
-        virtual boost::asio::awaitable<Entities::Content> getContentMetadataByIdAsync(boost::uuids::uuid contentId) = 0;
-        virtual boost::asio::awaitable<std::vector<Entities::Content>> getContentMetadataByOwnerIdAsync(boost::uuids::uuid ownerId) = 0;
-        virtual boost::asio::awaitable<void> editContentMetadataAsync(boost::uuids::uuid contentId, Entities::Content content) = 0;
-        virtual boost::asio::awaitable<boost::uuids::uuid> addContentMetadataAsync(Entities::Content content) = 0;
-        virtual boost::asio::awaitable<void> deleteContentMetadataAsync(boost::uuids::uuid contentId) = 0;
+        virtual boost::asio::awaitable<std::vector<Entities::Content>> getAllContentsAsync(int a_limit, int a_offset) = 0;
+        virtual boost::asio::awaitable<Entities::Content> getContentMetadataByIdAsync(const boost::uuids::uuid& a_content_id) = 0;
+        virtual boost::asio::awaitable<std::vector<Entities::Content>> getContentMetadataByOwnerIdAsync(const boost::uuids::uuid& a_owner_id) = 0;
+        virtual boost::asio::awaitable<void> editContentMetadataAsync(const boost::uuids::uuid&, Entities::Content& a_content) = 0;
+        virtual boost::asio::awaitable<boost::uuids::uuid> addContentMetadataAsync(Entities::Content& a_content) = 0;
+        virtual boost::asio::awaitable<void> deleteContentMetadataAsync(const boost::uuids::uuid& a_content_id) = 0;
     };
 }

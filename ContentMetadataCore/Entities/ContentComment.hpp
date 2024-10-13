@@ -5,7 +5,7 @@ namespace ContentMetadataCore
 {
     namespace Entities
     {
-        struct CONTENT_METADATA_CORE_EXPORT ContentComment
+        struct ContentComment
         {
             boost::uuids::uuid m_uuid = boost::uuids::nil_uuid();
             std::string m_body;

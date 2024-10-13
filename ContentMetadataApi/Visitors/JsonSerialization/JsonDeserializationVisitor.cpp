@@ -8,7 +8,7 @@ namespace ContentMetadataApi
 	{
 		JsonDeserializationVisitor::JsonDeserializationVisitor(
 			const std::string& json_string,
-			std::shared_ptr<Parsers::IDateTimeParser> a_date_time_parser,
+			std::shared_ptr<ContentMetadataCommon::IDateTimeParser> a_date_time_parser,
 			std::shared_ptr<Parsers::IGuidParser> a_guid_parser) noexcept
 			: m_json_string(json_string)
 			, m_date_time_parser(a_date_time_parser)
@@ -155,6 +155,7 @@ namespace ContentMetadataApi
 
 			if (content_json_value.HasMember(JsonKeys::CONTENT_COMMENTS) && content_json_value[JsonKeys::CONTENT_COMMENTS].IsArray())
 			{
+				result.m_content_comments = std::vector<ContentMetadataApi::Dto::ContentCommentDto>();
 				for (auto& comment : content_json_value[JsonKeys::CONTENT_COMMENTS].GetArray())
 				{
 					auto content_comment = deserializeContentComment(comment);
