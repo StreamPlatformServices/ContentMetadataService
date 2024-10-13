@@ -15,10 +15,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Turn off specific compiler extensions
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Add pg sql
-#set(PostgreSQL_ROOT "Path/To/PGSql")
-#find_package(PostgreSQL REQUIRED)
-
 # Add subprojects (libraries)
 add_subdirectory(ContentMetadataCommon)
 add_subdirectory(ContentMetadataApi)
@@ -56,17 +52,22 @@ link_directories("${CMAKE_BINARY_DIR}/ContentMetadataRepository")
 link_directories("${CMAKE_BINARY_DIR}/external/src")
 
 
-#add_custom_command(TARGET ContentMetadataService POST_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E env "PATH=$ENV{PATH};${CMAKE_CURRENT_BINARY_DIR}/ContentMetadataApi"
-#    $<TARGET_FILE:ContentMetadataService>)
 
-# Install the main executable (optional, but often used in projects)
 install(TARGETS ContentMetadataApi
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}"
 )
 
 # Install the .pdb files (symbols for debugging)
 install(FILES "$<TARGET_PDB_FILE:ContentMetadataApi>"
+    DESTINATION "${CMAKE_BINARY_DIR}"
+    OPTIONAL
+)
+
+install(TARGETS ContentMetadataRepository
+    RUNTIME DESTINATION "${CMAKE_BINARY_DIR}"
+)
+
+install(FILES "$<TARGET_PDB_FILE:ContentMetadataRepository>"
     DESTINATION "${CMAKE_BINARY_DIR}"
     OPTIONAL
 )

@@ -1,7 +1,4 @@
 ﻿project(ContentMetadataApi)
- 
-#(only for testing purpose)
-message("CMAKE_SOURCE_DIR is set to: ${CMAKE_CURRENT_SOURCE_DIR}")
 
 # Collect all source files from the DynamicLib folder
 file(GLOB_RECURSE CONTENT_METADATA_API_FILES "*.cpp" "*.hpp")
@@ -24,10 +21,6 @@ target_link_libraries(ContentMetadataApi PRIVATE ContentMetadataCore ContentMeta
 link_directories("${CMAKE_BINARY_DIR}/../ContentMetadataCore")
 link_directories("${CMAKE_BINARY_DIR}/../ContentMetadataCommon")
 
-#target_link_libraries(ContentMetadataApi PRIVATE restinio)
-
-# Set the C++ standard (if required)
-#set_property(TARGET ContentMetadataApi PROPERTY CXX_STANDARD 20)
 
 
 

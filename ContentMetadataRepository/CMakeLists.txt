@@ -19,6 +19,5 @@ target_include_directories(ContentMetadataRepository PRIVATE
 # Link lib
 target_link_libraries(ContentMetadataRepository PRIVATE ContentMetadataCommon ContentMetadataCore pqxx)
 link_directories("${CMAKE_BINARY_DIR}/../ContentMetadataCore")
-#link_directories("${CMAKE_BINARY_DIR}/../external/src")
 
 
