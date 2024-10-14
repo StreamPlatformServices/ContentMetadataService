@@ -65,14 +65,20 @@ namespace ContentMetadataApi_Tests
     };
 
     class JsonDeserializationVisitorLicenseRulesDto_Should : public JsonDeserializationVisitor_Should, public ::testing::WithParamInterface <std::tuple<
-        std::string, int, ContentMetadataCore::Enums::LicenseType, 
-        std::optional<ContentMetadataCore::Enums::LicenseDuration>>>  
+        std::string, 
+        int, 
+        ContentMetadataCore::Enums::LicenseType, 
+        std::optional<ContentMetadataCore::Enums::LicenseDuration>,
+        std::string>>
     {
     };
 
     class JsonDeserializationVisitorLicenseRulesDtoInvalid_Should : public JsonDeserializationVisitor_Should, public ::testing::WithParamInterface <std::tuple<
-        std::string, int, ContentMetadataCore::Enums::LicenseType,  
-        std::optional<ContentMetadataCore::Enums::LicenseDuration>>>  
+        std::string, 
+        int, 
+        ContentMetadataCore::Enums::LicenseType,  
+        std::optional<ContentMetadataCore::Enums::LicenseDuration>, 
+        std::string>>
     {
     };
 

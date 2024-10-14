@@ -28,7 +28,9 @@ namespace ContentMetadataApi
 			auto executeAsync() const -> boost::asio::awaitable<HttpResponse>  override;
 
 		private:
-			const boost::uuids::uuid& m_content_id;
+			const boost::uuids::uuid m_content_id;
+
+			//Note: body should always exist in the whole request scope.
 			const std::string& m_request_body;
 
 			std::shared_ptr<ContentMetadataCore::IContentsContract> m_contents_contract;

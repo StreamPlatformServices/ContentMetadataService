@@ -321,6 +321,25 @@ namespace ContentMetadataApi
 				throw std::invalid_argument("License uuid is requierd!");
 			}
 
+			if (license_rules_json_value.HasMember(JsonKeys::CONTENT_ID) && license_rules_json_value[JsonKeys::CONTENT_ID].IsString())
+			{
+				auto&& content_id_str = license_rules_json_value[JsonKeys::CONTENT_ID].GetString();
+				try
+				{
+					result.m_content_id = m_guid_parser->parseGuid(content_id_str);
+				}
+				catch (const std::exception& e)
+				{
+					std::stringstream ss;
+					ss << "Invalid license rules content id exception: " << e.what();
+					throw std::invalid_argument(ss.str());
+				}
+			}
+			else
+			{
+				throw std::invalid_argument("License rule requie information about content id!");
+			}
+
 			if (license_rules_json_value.HasMember(JsonKeys::PRICE) && license_rules_json_value[JsonKeys::PRICE].IsInt())
 			{
 				result.m_price = license_rules_json_value[JsonKeys::PRICE].GetInt();

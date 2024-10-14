@@ -13,12 +13,13 @@ namespace ContentMetadataApi_Tests
         auto comment_user_name = std::string("john_doe");
 
         std::string license_rules_json = R"([{
-        "uuid": ")" + license_rule_uuid_str + R"(",
-        "price": 50,
-        "type": 2,
-        "duration": 1
-    }
-    ])";
+            "uuid": ")" + license_rule_uuid_str + R"(",
+            "price": 50,
+            "type": 2,
+            "duration": 1,
+            "content_id": ")" + uuid_str + R"("
+        }
+        ])";
 
         std::string content_comments_json = R"([{
         "uuid": ")" + comment_uuid_str + R"(",
@@ -47,6 +48,7 @@ namespace ContentMetadataApi_Tests
         ContentMetadataApi::Dto::ContentDto content_dto;
 
         EXPECT_CALL(*m_mock_guid_parser, parseGuid(uuid_str))
+            .WillOnce(::testing::Return(boost::uuids::string_generator()(uuid_str)))
             .WillOnce(::testing::Return(boost::uuids::string_generator()(uuid_str)))
             .WillOnce(::testing::Return(boost::uuids::string_generator()(uuid_str)));
 
@@ -132,24 +134,25 @@ namespace ContentMetadataApi_Tests
         auto license_rule_uuid_str = std::string("44ee6677-8899-aabb-ccdd-eeff0f334455");
 
         std::string license_rules_json = R"([{
-        "uuid": ")" + license_rule_uuid_str + R"(",
-        "price": 50,
-        "type": 2,
-        "duration": 1
-    }
-    ])";
+            "uuid": ")" + license_rule_uuid_str + R"(",
+            "price": 50,
+            "type": 2,
+            "duration": 1,
+            "content_id": ")" + uuid_str + R"("
+        }
+        ])";
 
         auto json_input = R"({
-        "uuid": ")" + uuid_str + R"(",
-        "title": ")" + title + R"(",
-        "description": ")" + description + R"(",
-        "duration": )" + std::to_string(duration) + R"(,
-        "owner_id": ")" + owner_id + R"(",
-        "video_file_id": ")" + video_file_id + R"(",
-        "image_file_id": ")" + image_file_id + R"(",
-        "upload_time": ")" + upload_time + R"(",
-        "license_rules": )" + license_rules_json + R"(
-    })";
+            "uuid": ")" + uuid_str + R"(",
+            "title": ")" + title + R"(",
+            "description": ")" + description + R"(",
+            "duration": )" + std::to_string(duration) + R"(,
+            "owner_id": ")" + owner_id + R"(",
+            "video_file_id": ")" + video_file_id + R"(",
+            "image_file_id": ")" + image_file_id + R"(",
+            "upload_time": ")" + upload_time + R"(",
+            "license_rules": )" + license_rules_json + R"(
+        })";
 
         auto sut = m_visitor_factory->createJsonDeserializationVisitor(json_input);
 
@@ -254,21 +257,22 @@ namespace ContentMetadataApi_Tests
 
     TEST_P(JsonDeserializationVisitorLicenseRulesDto_Should, DeserializeLicenseRulesDto)
     {
-        auto [uuid_str, price, type, duration] = GetParam();
+        auto [uuid_str, price, type, duration, content_id_str] = GetParam();
 
         std::string duration_field = duration.has_value() ? std::to_string(static_cast<int>(duration.value())) : "null";
         auto json_input = R"({
         "uuid": ")" + uuid_str + R"(",
         "price": )" + std::to_string(price) + R"(,
         "type": )" + std::to_string(static_cast<int>(type)) + R"(,
-        "duration": )" + duration_field + R"(
-    })";
+        "duration": )" + duration_field + R"(,
+        "content_id": ")" + content_id_str + R"(" })";
 
         auto sut = m_visitor_factory->createJsonDeserializationVisitor(json_input);
 
         ContentMetadataApi::Dto::LicenseRulesDto license_rules_dto;
 
         EXPECT_CALL(*m_mock_guid_parser, parseGuid(uuid_str)).WillOnce(::testing::Return(boost::uuids::string_generator()(uuid_str)));
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(content_id_str)).WillOnce(::testing::Return(boost::uuids::string_generator()(content_id_str)));
 
         sut->visit(license_rules_dto);
 
@@ -289,24 +293,32 @@ namespace ContentMetadataApi_Tests
         LicenseRulesDtoTests,
         JsonDeserializationVisitorLicenseRulesDto_Should,
         ::testing::Values(
-            std::make_tuple("11223344-5566-7788-99aa-bbccddeeff00", 100, ContentMetadataCore::Enums::LicenseType::Rent,
-                ContentMetadataCore::Enums::LicenseDuration::OneDay),
-            std::make_tuple("22334455-6677-8899-aabb-ccddeeff0011", 50, ContentMetadataCore::Enums::LicenseType::Unknown,
-                ContentMetadataCore::Enums::LicenseDuration::TwoDays)
+            std::make_tuple(
+                "11223344-5566-7788-99aa-bbccddeeff00", 
+                100, 
+                ContentMetadataCore::Enums::LicenseType::Rent,
+                ContentMetadataCore::Enums::LicenseDuration::OneDay,
+                "22334455-6677-8899-aabb-ccddeeff0011"),
+            std::make_tuple(
+                "22334455-6677-8899-aabb-ccddeeff0011", 
+                50, 
+                ContentMetadataCore::Enums::LicenseType::Unknown,
+                ContentMetadataCore::Enums::LicenseDuration::TwoDays,
+                "22334455-6677-8899-aabb-ccddeeff0311")
         )
     );
 
     TEST_P(JsonDeserializationVisitorLicenseRulesDtoInvalid_Should, ShouldThrowInvalidArgumentOnInvalidInput)
     {
-        auto [uuid_str, price, type, duration] = GetParam();
+        auto [uuid_str, price, type, duration, content_id_str] = GetParam();
 
         std::string duration_field = duration.has_value() ? std::to_string(static_cast<int>(duration.value())) : "null";
         auto json_input = R"({
             "uuid": ")" + uuid_str + R"(",
             "price": )" + std::to_string(price) + R"(,
             "type": )" + std::to_string(static_cast<int>(type)) + R"(,
-            "duration": )" + duration_field + R"(
-        })";
+            "duration": )" + duration_field + R"(,
+            "content_id": ")" + content_id_str + R"(" })";
 
         auto sut = m_visitor_factory->createJsonDeserializationVisitor(json_input);
 
@@ -321,15 +333,37 @@ namespace ContentMetadataApi_Tests
         LicenseRulesDtoInvalidTests,
         JsonDeserializationVisitorLicenseRulesDtoInvalid_Should,
         ::testing::Values(
-            std::make_tuple("invalid-uuid", 100, ContentMetadataCore::Enums::LicenseType::Rent,
-                ContentMetadataCore::Enums::LicenseDuration::OneDay), // Invalid UUID
-            std::make_tuple("11223344-5566-7788-99aa-bbccddeeff00", 100, static_cast<ContentMetadataCore::Enums::LicenseType>(-1),
-                ContentMetadataCore::Enums::LicenseDuration::OneDay), // Invalid license type
-            std::make_tuple("11223344-5566-7788-99aa-bbccddeeff00", 100, ContentMetadataCore::Enums::LicenseType::Rent,
-                static_cast<ContentMetadataCore::Enums::LicenseDuration>(-1)), // Invalid license duration
-            std::make_tuple("22334455-6677-8899-aabb-ccddeeff0011", 50, ContentMetadataCore::Enums::LicenseType::Unknown,
-                std::nullopt)
-        )
+            std::make_tuple(
+                "invalid-uuid", 
+                100, 
+                ContentMetadataCore::Enums::LicenseType::Rent,
+                ContentMetadataCore::Enums::LicenseDuration::OneDay, 
+                "11223344-5566-7788-99aa-bbccddeeff02"), // Invalid UUID
+            std::make_tuple(
+                "11223344-5566-7788-99aa-bbccddeeff00", 
+                100, 
+                static_cast<ContentMetadataCore::Enums::LicenseType>(-1),
+                ContentMetadataCore::Enums::LicenseDuration::OneDay, 
+                "11223344-5566-7788-99aa-bbccddeeff01"), // Invalid license type
+            std::make_tuple(
+                "11223344-5566-7788-99aa-bbccddeeff00", 
+                100, 
+                ContentMetadataCore::Enums::LicenseType::Rent,
+                static_cast<ContentMetadataCore::Enums::LicenseDuration>(-1), 
+                "11223344-5566-7788-99aa-bbccddeeff02"), // Invalid license duration
+            std::make_tuple(
+                "22334455-6677-8899-aabb-ccddeeff0011", 
+                50, 
+                ContentMetadataCore::Enums::LicenseType::Unknown,
+                std::nullopt, 
+                "11223344-5566-7788-99aa-bbccddeeff02"),
+            std::make_tuple(
+                "11223344-5566-7788-99aa-bbccddeeff00",
+                100,
+                ContentMetadataCore::Enums::LicenseType::Rent,
+                ContentMetadataCore::Enums::LicenseDuration::Month,
+                "invalid") // Invalid content_id
+            )
     );
 
 

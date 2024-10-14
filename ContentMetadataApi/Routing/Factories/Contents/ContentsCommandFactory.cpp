@@ -45,7 +45,7 @@ namespace ContentMetadataApi
             if (a_request.m_routing_path.size() == 2 && a_request.m_routing_path.at(0) == AUTHOR_ROUTING_PATH_VALUE && m_guid_parser->isGuid(a_request.m_routing_path.at(1)))
             {
                 //GET /content/author/{ownerId}
-                auto contentId = m_guid_parser->parseGuid(a_request.m_routing_path.at(0));//move logic to command?
+                auto contentId = m_guid_parser->parseGuid(a_request.m_routing_path.at(1));
                 return std::make_unique<GetContentsByOwnerIdCommand>(contentId, m_contents_contract, m_content_mapper, m_visitor_factory);
             }
 

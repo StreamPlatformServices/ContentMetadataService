@@ -24,7 +24,7 @@ namespace ContentMetadataApi_Tests
         request.m_routing_path = { "123e4567-e89b-12d3-a456-426614174000" };
 
         EXPECT_CALL(*m_mock_guid_parser, isGuid(::testing::An<const std::string&>())).WillOnce(::testing::Return(true));
-        EXPECT_CALL(*m_mock_guid_parser, parseGuid(::testing::_)).WillOnce(::testing::Return(boost::uuids::string_generator()("123e4567-e89b-12d3-a456-426614174000")));
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(request.m_routing_path.at(0))).WillOnce(::testing::Return(boost::uuids::string_generator()(request.m_routing_path.at(0))));
 
         auto command = m_sut->createGetCommand(request);
 
@@ -37,7 +37,7 @@ namespace ContentMetadataApi_Tests
         request.m_routing_path = { "author", "123e4567-e89b-12d3-a456-426614174000" };
 
         EXPECT_CALL(*m_mock_guid_parser, isGuid(::testing::An<const std::string&>())).WillOnce(::testing::Return(true));
-        EXPECT_CALL(*m_mock_guid_parser, parseGuid(::testing::_)).WillOnce(::testing::Return(boost::uuids::string_generator()("123e4567-e89b-12d3-a456-426614174000")));
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(request.m_routing_path.at(1))).WillOnce(::testing::Return(boost::uuids::string_generator()(request.m_routing_path.at(1))));
 
         auto command = m_sut->createGetCommand(request);
 
@@ -86,7 +86,7 @@ namespace ContentMetadataApi_Tests
         request.m_routing_path = { "123e4567-e89b-12d3-a456-426614174000" };
 
         EXPECT_CALL(*m_mock_guid_parser, isGuid(::testing::An<const std::string&>())).WillOnce(::testing::Return(true));
-        EXPECT_CALL(*m_mock_guid_parser, parseGuid(::testing::_)).WillOnce(::testing::Return(boost::uuids::string_generator()("123e4567-e89b-12d3-a456-426614174000")));
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(request.m_routing_path.at(0))).WillOnce(::testing::Return(boost::uuids::string_generator()(request.m_routing_path.at(0))));
 
         auto command = m_sut->createDeleteCommand(request);
 
@@ -113,7 +113,7 @@ namespace ContentMetadataApi_Tests
         request.m_body = "Test body";
 
         EXPECT_CALL(*m_mock_guid_parser, isGuid(::testing::An<const std::string&>())).WillOnce(::testing::Return(true));
-        EXPECT_CALL(*m_mock_guid_parser, parseGuid(::testing::_)).WillOnce(::testing::Return(boost::uuids::string_generator()("123e4567-e89b-12d3-a456-426614174000")));
+        EXPECT_CALL(*m_mock_guid_parser, parseGuid(request.m_routing_path.at(0))).WillOnce(::testing::Return(boost::uuids::string_generator()(request.m_routing_path.at(0))));
 
         auto command = m_sut->createPutCommand(request);
 

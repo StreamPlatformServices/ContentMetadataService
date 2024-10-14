@@ -58,9 +58,13 @@ namespace ContentMetadataApi
                 content_dto.m_license_rules.push_back(m_license_rules_mapper->licenseRulesDtoFrom(license_rules_entity));
             }
 
-            for (auto& content_comments_entity : a_content_entity.m_content_comments)
+            if (a_content_entity.m_content_comments.size() > 0)
             {
-                content_dto.m_content_comments->push_back(m_content_comment_mapper->contentCommentDtoFrom(content_comments_entity));
+                content_dto.m_content_comments = std::vector<Dto::ContentCommentDto>();
+                for (auto& content_comments_entity : a_content_entity.m_content_comments)
+                {
+                    content_dto.m_content_comments->push_back(m_content_comment_mapper->contentCommentDtoFrom(content_comments_entity));
+                }
             }
 
             content_dto.m_owner_id = a_content_entity.m_owner_id;

@@ -14,6 +14,7 @@ namespace ContentMetadataApi
             int                                                         m_price = 0;
             ContentMetadataCore::Enums::LicenseType                     m_type = ContentMetadataCore::Enums::LicenseType::Unknown;
             std::optional<ContentMetadataCore::Enums::LicenseDuration>  m_duration;
+            boost::uuids::uuid                                          m_content_id = boost::uuids::nil_uuid();
 
             void accept(Visitors::IVisitor& a_visitor) override
             {

@@ -13,6 +13,7 @@ namespace ContentMetadataApi
             license_rules_entity.m_price = a_license_rules_dto.m_price;
             license_rules_entity.m_type = a_license_rules_dto.m_type;
             license_rules_entity.m_duration = a_license_rules_dto.m_duration;
+            license_rules_entity.m_content_id = a_license_rules_dto.m_content_id;
 
             return license_rules_entity;
         }
@@ -25,6 +26,7 @@ namespace ContentMetadataApi
             license_rules_dto.m_price = a_license_rules_entity.m_price;
             license_rules_dto.m_type = a_license_rules_entity.m_type;
             license_rules_dto.m_duration = a_license_rules_entity.m_duration;
+            license_rules_dto.m_content_id = a_license_rules_entity.m_content_id;
 
             return license_rules_dto;
         }

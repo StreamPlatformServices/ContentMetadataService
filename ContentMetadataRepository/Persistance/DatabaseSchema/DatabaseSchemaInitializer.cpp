@@ -11,24 +11,32 @@ namespace ContentMetadataRepository
 
     void DatabaseSchemaInitializer::createContentMetadataTables() const
     {
-        pqxx::connection database_connection(std::format(
-            "dbname={} user={} password={}",
-            m_configuration->getDbName(), m_configuration->getDbUsername(), m_configuration->getDbPassword()));
-        pqxx::work transaction(database_connection);
-
         try
         {
+            pqxx::connection database_connection(std::format(
+                "dbname={} user={} password={}",
+                m_configuration->getDbName(), m_configuration->getDbUsername(), m_configuration->getDbPassword()));
+
+            pqxx::work transaction(database_connection);
+
             createContentTable(transaction);
             createContentCommentTable(transaction);
             createLicenseRuleTable(transaction);
+
             transaction.commit();
+        }
+        catch (const pqxx::broken_connection& e)
+        {
+            std::cerr << "Connection to database: " << '"' << m_configuration->getDbName() << '"' << " failed." << std::endl;
+            throw;
         }
         catch (const std::exception& e)
         {
             std::cerr << "Operation createContentMetadataTables failed." << std::endl;
-            transaction.abort();
+            throw;
         }
     }
+
 
     void DatabaseSchemaInitializer::createContentTable(pqxx::work& a_transaction) const
     {
@@ -59,7 +67,6 @@ namespace ContentMetadataRepository
         try 
         {
             a_transaction.exec0(sql);
-            std::cout << "Table '" << DatabaseKeys::CONTENT_TABLE_NAME << "' created successfully." << std::endl;
         }
         catch (const pqxx::sql_error& e) 
         {
@@ -98,7 +105,6 @@ namespace ContentMetadataRepository
         try
         {
             a_transaction.exec0(sql);
-            std::cout << "Table '" << DatabaseKeys::LICENSE_RULES_TABLE_NAME << "' created successfully." << std::endl;
         }
         catch (const pqxx::sql_error& e)
         {
@@ -138,7 +144,6 @@ namespace ContentMetadataRepository
         try
         {
             a_transaction.exec0(sql);
-            std::cout << "Table '" << DatabaseKeys::CONTENT_COMMENT_TABLE_NAME << "' created successfully." << std::endl;
         }
         catch (const pqxx::sql_error& e)
         {

@@ -61,6 +61,7 @@ namespace ContentMetadataApi_Tests
         int, 
         ContentMetadataCore::Enums::LicenseType, 
         ContentMetadataCore::Enums::LicenseDuration, 
+        bool,
         bool>>
     {
     };

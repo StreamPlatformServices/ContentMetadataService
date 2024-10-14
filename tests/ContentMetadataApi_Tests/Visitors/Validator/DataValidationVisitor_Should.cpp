@@ -22,6 +22,7 @@ namespace ContentMetadataApi_Tests
         license_rule.m_price = 50;
         license_rule.m_type = ContentMetadataCore::Enums::LicenseType::Rent;
         license_rule.m_duration = ContentMetadataCore::Enums::LicenseDuration::OneDay;
+        license_rule.m_content_id = boost::uuids::string_generator()(uuid_str);
 
         content_dto.m_license_rules.push_back(license_rule);
 
@@ -98,29 +99,33 @@ namespace ContentMetadataApi_Tests
 
     TEST_P(DataValidationLicenseRulesDtoVisitor_Should, ValidateLicenseRulesDto)
     {
-        auto [price, license_type, duration, uuid_valid] = GetParam();
+        auto [price, license_type, duration, uuid_valid, content_id_valid] = GetParam();
 
         ContentMetadataApi::Dto::LicenseRulesDto license_dto;
+        license_dto.m_uuid = boost::uuids::random_generator()();
         license_dto.m_price = price;
         license_dto.m_type = license_type;
         license_dto.m_duration = duration;
+        license_dto.m_content_id = boost::uuids::random_generator()();
 
         EXPECT_CALL(*m_mock_guid_parser, isGuid(license_dto.m_uuid)).WillOnce(::testing::Return(uuid_valid));
+        EXPECT_CALL(*m_mock_guid_parser, isGuid(license_dto.m_content_id)).WillOnce(::testing::Return(content_id_valid));
 
         m_sut->visit(license_dto);
 
-        EXPECT_EQ(m_errors.empty(), uuid_valid && price >= 0 && license_type != ContentMetadataCore::Enums::LicenseType::Unknown);
+        EXPECT_EQ(m_errors.empty(), uuid_valid && content_id_valid && price >= 0 && license_type != ContentMetadataCore::Enums::LicenseType::Unknown);
     }
 
     INSTANTIATE_TEST_SUITE_P(
         DataValidationLicenseRulesDtoTests,
         DataValidationLicenseRulesDtoVisitor_Should,
         ::testing::Values(
-            std::make_tuple(-1, ContentMetadataCore::Enums::LicenseType::Unknown, ContentMetadataCore::Enums::LicenseDuration::Unknown, false),
-            std::make_tuple(100, ContentMetadataCore::Enums::LicenseType::Rent, ContentMetadataCore::Enums::LicenseDuration::Month, true),
-            std::make_tuple(0, ContentMetadataCore::Enums::LicenseType::Rent, ContentMetadataCore::Enums::LicenseDuration::OneDay, true),
-            std::make_tuple(50, ContentMetadataCore::Enums::LicenseType::Buy, ContentMetadataCore::Enums::LicenseDuration::Unknown, true),
-            std::make_tuple(75, ContentMetadataCore::Enums::LicenseType::Unknown, ContentMetadataCore::Enums::LicenseDuration::Week, false)
+            std::make_tuple(-1, ContentMetadataCore::Enums::LicenseType::Unknown, ContentMetadataCore::Enums::LicenseDuration::Unknown, false, true),
+            std::make_tuple(100, ContentMetadataCore::Enums::LicenseType::Rent, ContentMetadataCore::Enums::LicenseDuration::Month, true, true),
+            std::make_tuple(0, ContentMetadataCore::Enums::LicenseType::Rent, ContentMetadataCore::Enums::LicenseDuration::OneDay, true, true),
+            std::make_tuple(50, ContentMetadataCore::Enums::LicenseType::Buy, ContentMetadataCore::Enums::LicenseDuration::Unknown, true, true),
+            std::make_tuple(75, ContentMetadataCore::Enums::LicenseType::Unknown, ContentMetadataCore::Enums::LicenseDuration::Week, false, true),
+            std::make_tuple(100, ContentMetadataCore::Enums::LicenseType::Rent, ContentMetadataCore::Enums::LicenseDuration::Month, true, false)
         )
     );
 

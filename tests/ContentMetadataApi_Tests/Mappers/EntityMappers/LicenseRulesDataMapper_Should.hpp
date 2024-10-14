@@ -14,7 +14,8 @@ namespace ContentMetadataApi_Tests
         std::string,       // UUID
         int,               // Price
         ContentMetadataCore::Enums::LicenseType, // License type
-        std::optional<ContentMetadataCore::Enums::LicenseDuration> // License duration
+        std::optional<ContentMetadataCore::Enums::LicenseDuration>, // License duration
+        std::string        // UUID
         >>
     {
     protected:

@@ -88,10 +88,20 @@ namespace ContentMetadataRepository
         auto transaction_id = boost::uuids::random_generator()();
         auto content_repository = co_await m_unit_of_work->contentRepositoryAsync(transaction_id);
         auto license_rules_repository = co_await m_unit_of_work->licenseRulesRepositoryAsync(transaction_id);
-        a_content.m_uuid = a_content_id;
+
+        if (a_content.m_uuid.is_nil())
+        {
+            a_content.m_uuid = a_content_id;
+        }
 
         try
         {
+            if (a_content.m_uuid != a_content_id)
+            {
+                throw std::invalid_argument(std::format("content id doesn't match with id in body! Content id: {}, id from body: {}",
+                    to_string(a_content_id), to_string(a_content.m_uuid)));
+            }
+
             co_await license_rules_repository->deleteByContentIdAsync(a_content_id);
 
             co_await content_repository->updateAsync(a_content);

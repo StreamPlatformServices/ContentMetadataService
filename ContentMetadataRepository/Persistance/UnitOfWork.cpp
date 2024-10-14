@@ -31,7 +31,7 @@ namespace ContentMetadataRepository
         {
             std::shared_lock lock_transactions(m_transactions_shared_mutex);
             auto it = m_transactions.find(a_transaction_id);
-            if (it == m_transactions.end())
+            if (it == m_transactions.end() || it->second == nullptr)
             {
                 std::cerr << "ERROR: Cannot commit transaction. Transaction with id " << a_transaction_id << " doesn't exist." << std::endl;
                 throw std::runtime_error(std::format("ERROR: Cannot commit transaction. Transaction with id {} doesn't exist.", boost::uuids::to_string(a_transaction_id)));
@@ -61,7 +61,7 @@ namespace ContentMetadataRepository
         {
             std::shared_lock lock_transactions(m_transactions_shared_mutex);
             auto it = m_transactions.find(a_transaction_id);
-            if (it == m_transactions.end())
+            if (it == m_transactions.end() || it->second == nullptr)
             {
                 std::cerr << "ERROR: Cannot rollback transaction. Transaction with id " << a_transaction_id << " doesn't exist." << std::endl;
                 throw std::runtime_error(std::format("ERROR: Cannot rollback transaction. Transaction with id {} doesn't exist.", boost::uuids::to_string(a_transaction_id)));
@@ -173,7 +173,7 @@ namespace ContentMetadataRepository
 
         m_transactions.erase(a_transaction_id);
         auto it = m_active_connections.find(a_transaction_id);
-        if (it == m_active_connections.end())
+        if (it == m_active_connections.end() || it->second == nullptr)
         {
             throw std::runtime_error("Could not release connection to stack. Connection doesn't exist.");
         }

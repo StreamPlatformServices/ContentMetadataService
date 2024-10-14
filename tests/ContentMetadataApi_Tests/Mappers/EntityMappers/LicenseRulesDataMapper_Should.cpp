@@ -4,7 +4,7 @@
 namespace ContentMetadataApi_Tests
 {
     TEST_P(LicenseRulesDataMapper_Should, ConvertDtoToEntityCorrectly) {
-        auto [uuid_str, price, license_type, license_duration] = GetParam();
+        auto [uuid_str, price, license_type, license_duration, content_id] = GetParam();
 
         ContentMetadataApi::Dto::LicenseRulesDto dto;
         dto.m_uuid = boost::uuids::string_generator()(uuid_str);
@@ -27,19 +27,21 @@ namespace ContentMetadataApi_Tests
     }
 
     TEST_P(LicenseRulesDataMapper_Should, ConvertEntityToDtoCorrectly) {
-        auto [uuid_str, price, license_type, license_duration] = GetParam();
+        auto [uuid_str, price, license_type, license_duration, content_id_sr] = GetParam();
 
         ContentMetadataCore::Entities::LicenseRules entity;
         entity.m_uuid = boost::uuids::string_generator()(uuid_str);
         entity.m_price = price;
         entity.m_type = license_type;
         entity.m_duration = license_duration;
+        entity.m_content_id = boost::uuids::string_generator()(content_id_sr);
 
         ContentMetadataApi::Dto::LicenseRulesDto expected_dto;
         expected_dto.m_uuid = boost::uuids::string_generator()(uuid_str);
         expected_dto.m_price = price;
         expected_dto.m_type = license_type;
         expected_dto.m_duration = license_duration;
+        expected_dto.m_content_id = boost::uuids::string_generator()(content_id_sr);
 
         auto actual_dto = m_sut->licenseRulesDtoFrom(entity);
 
@@ -57,37 +59,43 @@ namespace ContentMetadataApi_Tests
                 "00000000-0000-0000-0000-000000000000",  // UUID
                 100,                                    // Price
                 ContentMetadataCore::Enums::LicenseType::Rent,  // License type
-                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::OneDay)  // Duration 
+                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::OneDay),  // Duration
+                "00000000-0000-0000-0000-000000000000"  // UUID
             ),
             std::make_tuple(
                 "11223344-5566-7788-99aa-bbccddeeff00",  // UUID
                 500,                                    // Price
                 ContentMetadataCore::Enums::LicenseType::Buy,  // License type
-                std::nullopt                            // No duration (permanent license)
+                std::nullopt,                           // No duration (permanent license)
+                "11223344-5566-7788-99aa-bbccddeeff01"  // UUID
             ),
             std::make_tuple(
                 "22334455-6677-8899-aabb-ccddeeff0011",  // UUID
                 200,                                    // Price
                 ContentMetadataCore::Enums::LicenseType::Rent,  // License type
-                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::TwoDays)  // Duration 
+                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::TwoDays),  // Duration 
+                "11223344-5566-7788-99aa-bbccddeeff00"  // UUID
             ),
             std::make_tuple(
                 "33445566-7788-99aa-bbcc-ddeeff002233",  // UUID
                 300,                                    // Price
                 ContentMetadataCore::Enums::LicenseType::Rent,  // License type
-                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::ThreeDays)  // Duration 
+                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::ThreeDays),  // Duration 
+                "11223344-5566-7788-99aa-bbccddeeff00"  // UUID
             ),
             std::make_tuple(
                 "44556677-8899-aabb-ccdd-eeff00334455",  // UUID
                 400,                                    // Price
                 ContentMetadataCore::Enums::LicenseType::Rent,  // License type
-                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::Week)  // Duration 
+                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::Week),  // Duration 
+                "11223344-5566-7788-99aa-bbccddeeff00"  // UUID
             ),
             std::make_tuple(
                 "55667788-99aa-bbcc-ddee-ff0044556677",  // UUID
                 8760,                                   // Price 
                 ContentMetadataCore::Enums::LicenseType::Rent,  // License type
-                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::Month)  // Duration 
+                std::optional<ContentMetadataCore::Enums::LicenseDuration>(ContentMetadataCore::Enums::LicenseDuration::Month),  // Duration 
+                "11223344-5566-7788-99aa-bbccddeeff00"  // UUID
             )
         )
     );

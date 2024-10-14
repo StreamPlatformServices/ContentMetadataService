@@ -27,6 +27,7 @@
 * TODO:
 * 1. Change pqxx library to pqlib, use async couritine, remove redundant thread pool, and add pg sql connections limit in configuration
 * 2. Use async spdlog for logging
+* 3. Use different content's dto's for response and request (there is no use for comments in content stucture while adding content)
 */
 
 namespace
@@ -59,7 +60,15 @@ int main()
 	auto repository_factory = std::make_unique<ContentMetadataRepository::RepositoryFactory>(thread_pool_manager, date_time_parser);
 	auto unit_of_work = std::make_shared<ContentMetadataRepository::UnitOfWork>(configuration, std::move(repository_factory), thread_pool_manager);
 
-	unit_of_work->initializeConnectionsStack(configuration->getThreadPoolLimit());
+	try 
+	{
+		unit_of_work->initializeConnectionsStack(configuration->getThreadPoolLimit());
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "Failed to create database connections. Application will be terminated. Exception: " << e.what() << std::endl;
+		std::terminate();
+	}
 
 	//ContentMetadataCore<-Repository
 	auto content_contract = std::make_shared<ContentMetadataRepository::ContentsDatabaseService>(unit_of_work);
@@ -90,6 +99,8 @@ int main()
 	auto server = new ContentMetadataApi::HttpServer(std::move(http_data_mapper), std::move(command_selector));
 
 	server->startServer(configuration->getServerPort());
+
+	std::cout << "\nServer running...\n" << std::endl;
 
 	while (true) 
 	{

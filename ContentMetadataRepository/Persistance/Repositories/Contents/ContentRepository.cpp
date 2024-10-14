@@ -21,12 +21,30 @@ namespace ContentMetadataRepository
         {
             co_await boost::asio::post(pool, boost::asio::use_awaitable);
 
-            std::string sql = std::format(
-                "SELECT * FROM {} LIMIT {} OFFSET {};",
-                DatabaseKeys::CONTENT_TABLE_NAME,
-                a_limit,
-                a_offset
-            );
+            std::string sql;
+
+            if (a_limit == 0 && a_offset == 0)
+            {
+                sql = std::format("SELECT * FROM {};", DatabaseKeys::CONTENT_TABLE_NAME);
+            }
+            else if (a_limit == 0 && a_offset > 0)
+            {
+                sql = std::format(
+                    "SELECT * FROM {} OFFSET {};",
+                    DatabaseKeys::CONTENT_TABLE_NAME,
+                    a_offset
+                );
+            }
+            else
+            {
+                sql = std::format(
+                    "SELECT * FROM {} LIMIT {} OFFSET {};",
+                    DatabaseKeys::CONTENT_TABLE_NAME,
+                    a_limit,
+                    a_offset
+                );
+            }
+
             pqxx::result result = m_transaction->exec(sql);
 
             std::vector<ContentMetadataCore::Entities::Content> contents;

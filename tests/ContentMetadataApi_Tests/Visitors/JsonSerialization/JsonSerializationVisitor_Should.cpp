@@ -22,6 +22,7 @@ namespace ContentMetadataApi_Tests
         license_rule.m_duration = ContentMetadataCore::Enums::LicenseDuration::OneDay;
         license_rule.m_type = ContentMetadataCore::Enums::LicenseType::Rent;
         license_rule.m_price = 50;
+        license_rule.m_content_id = boost::uuids::string_generator()(uuid_str);
         content_dto.m_license_rules.push_back(license_rule);
 
         EXPECT_CALL(*m_mock_date_time_parser, getIso8601String())
@@ -70,6 +71,7 @@ namespace ContentMetadataApi_Tests
         EXPECT_EQ(license_rule_json["price"].GetInt(), 50);
         EXPECT_EQ(license_rule_json["type"].GetInt(), static_cast<int>(ContentMetadataCore::Enums::LicenseType::Rent));
         EXPECT_EQ(license_rule_json["duration"].GetInt(), static_cast<int>(ContentMetadataCore::Enums::LicenseDuration::OneDay));
+        EXPECT_EQ(license_rule_json["content_id"].GetString(), uuid_str);
     }
 
     INSTANTIATE_TEST_SUITE_P(
@@ -152,12 +154,13 @@ namespace ContentMetadataApi_Tests
 
     TEST_P(JsonSerializationVisitorLicenseRulesDto_Should, SerializeLicenseRulesDto)
     {
-        auto [uuid_str, price, type, duration, is_duration_present] = GetParam();
+        auto [uuid_str, price, type, duration, is_duration_present, content_id_str] = GetParam();
 
         ContentMetadataApi::Dto::LicenseRulesDto license_dto;
         license_dto.m_uuid = boost::uuids::string_generator()(uuid_str);
         license_dto.m_price = price;
         license_dto.m_type = type;
+        license_dto.m_content_id = boost::uuids::string_generator()(content_id_str);
 
         if (is_duration_present)
         {
@@ -173,10 +176,12 @@ namespace ContentMetadataApi_Tests
         ASSERT_TRUE(doc.HasMember("uuid"));
         ASSERT_TRUE(doc.HasMember("price"));
         ASSERT_TRUE(doc.HasMember("type"));
+        ASSERT_TRUE(doc.HasMember("content_id"));
 
         EXPECT_EQ(doc["uuid"].GetString(), uuid_str);
         EXPECT_EQ(doc["price"].GetInt(), price);
         EXPECT_EQ(doc["type"].GetInt(), static_cast<int>(type));
+        EXPECT_EQ(doc["content_id"].GetString(), content_id_str);
 
         if (is_duration_present)
         {
@@ -194,22 +199,22 @@ namespace ContentMetadataApi_Tests
         JsonSerializationVisitorLicenseRulesDto_Should,
         ::testing::Values(
             std::make_tuple("11223344-5566-7788-99aa-bbccddeeff00", 100, ContentMetadataCore::Enums::LicenseType::Rent,
-                ContentMetadataCore::Enums::LicenseDuration::OneDay, true),
+                ContentMetadataCore::Enums::LicenseDuration::OneDay, true, "11223344-5566-7788-99aa-bbccddeeff05"),
 
             std::make_tuple("22334455-6677-8899-aabb-ccddeeff0011", 0, ContentMetadataCore::Enums::LicenseType::Buy,
-                ContentMetadataCore::Enums::LicenseDuration::Unknown, false),
+                ContentMetadataCore::Enums::LicenseDuration::Unknown, false, "11223344-5566-7788-99aa-bbccddeeff05"),
 
             std::make_tuple("33445566-7788-99aa-bbcc-ddeeff002233", -50, ContentMetadataCore::Enums::LicenseType::Buy,
-                ContentMetadataCore::Enums::LicenseDuration::Unknown, false),
+                ContentMetadataCore::Enums::LicenseDuration::Unknown, false, "11223344-5566-7788-99aa-bbccddeeff05"),
 
             std::make_tuple("44556677-8899-aabb-ccdd-eeff00334455", 250, ContentMetadataCore::Enums::LicenseType::Rent,
-                ContentMetadataCore::Enums::LicenseDuration::Week, true),
+                ContentMetadataCore::Enums::LicenseDuration::Week, true, "11223344-5566-7788-99aa-bbccddeeff05"),
 
             std::make_tuple("00000000-0000-0000-0000-000000000000", 500, ContentMetadataCore::Enums::LicenseType::Rent,
-                ContentMetadataCore::Enums::LicenseDuration::Month, true),
+                ContentMetadataCore::Enums::LicenseDuration::Month, true, "11223344-5566-7788-99aa-bbccddeeff05"),
 
             std::make_tuple("55667788-99aa-bbcc-ddee-ff0066778899", 1000, ContentMetadataCore::Enums::LicenseType::Unknown,
-                ContentMetadataCore::Enums::LicenseDuration::Unknown, false)
+                ContentMetadataCore::Enums::LicenseDuration::Unknown, false, "11223344-5566-7788-99aa-bbccddeeff05")
         )
     );
 

@@ -64,8 +64,6 @@ namespace ContentMetadataApi
 			response.m_headers[HeaderKeys::CONTENT_TYPE] = "text/plain";
 			response.m_body = "Content updated successfully";
 
-
-
 			std::cout << "Finish executing UpdateContentCommand with success" << std::endl;
 
 			co_return response;

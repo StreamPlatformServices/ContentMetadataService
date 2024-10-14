@@ -202,6 +202,7 @@ namespace ContentMetadataApi
             doc.AddMember(rapidjson::Value(JsonKeys::UUID, allocator), rapidjson::Value().SetString(boost::uuids::to_string(a_license_rules_dto.m_uuid).c_str(), allocator), allocator);
             doc.AddMember(rapidjson::Value(JsonKeys::PRICE, allocator), rapidjson::Value(a_license_rules_dto.m_price).Move(), allocator);
             doc.AddMember(rapidjson::Value(JsonKeys::TYPE, allocator), rapidjson::Value(static_cast<int>(a_license_rules_dto.m_type)).Move(), allocator);
+            doc.AddMember(rapidjson::Value(JsonKeys::CONTENT_ID, allocator), rapidjson::Value().SetString(boost::uuids::to_string(a_license_rules_dto.m_content_id).c_str(), allocator), allocator);
 
             if (a_license_rules_dto.m_duration.has_value())
             {
