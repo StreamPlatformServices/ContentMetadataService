@@ -13,9 +13,8 @@ namespace ContentMetadataApi
 		public:
 			virtual ~IHttpDataMapper() = default;
 
-			virtual HttpRequest httpRequestFrom(const boost::beast::http::request<boost::beast::http::string_body>& a_request) const = 0;
-			virtual boost::beast::http::response<boost::beast::http::string_body> BoostBeastResponseFrom(const HttpResponse& a_response) const = 0;
-
+			virtual auto httpRequestFrom(const boost::beast::http::request<boost::beast::http::string_body>& a_request) const -> HttpRequest = 0;
+			virtual auto BoostBeastResponseFrom(const HttpResponse& a_response) const -> boost::beast::http::response<boost::beast::http::string_body> = 0;
 		};
 	}
 }

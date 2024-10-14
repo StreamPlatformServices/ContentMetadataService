@@ -15,7 +15,7 @@ namespace ContentMetadataApi
         {
         }
 
-        std::unique_ptr<ICommand> CommandSelector::selectHttpCommand(const HttpRequest& a_request) const
+        auto CommandSelector::selectHttpCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>
         {
             auto http_command_factory = m_http_command_factories_factory->createHttpCommandFactory(a_request.m_root_endpoint);
 

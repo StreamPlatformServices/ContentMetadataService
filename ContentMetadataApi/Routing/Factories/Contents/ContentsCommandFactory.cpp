@@ -27,7 +27,7 @@ namespace ContentMetadataApi
         {
         }
 
-        std::unique_ptr<ICommand> ContentsCommandFactory::createGetCommand(const HttpRequest& a_request) const
+        auto ContentsCommandFactory::createGetCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>
         { 
             if (a_request.m_routing_path.size() == 0)
             {
@@ -52,7 +52,7 @@ namespace ContentMetadataApi
             return nullptr; 
         }
 
-        std::unique_ptr<ICommand> ContentsCommandFactory::createPostCommand(const HttpRequest& a_request) const
+        auto ContentsCommandFactory::createPostCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>
         { 
             if (a_request.m_routing_path.size() == 0)
             {
@@ -63,7 +63,7 @@ namespace ContentMetadataApi
             return nullptr;
         }
 
-        std::unique_ptr<ICommand> ContentsCommandFactory::createPutCommand(const HttpRequest& a_request) const 
+        auto ContentsCommandFactory::createPutCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>
         { 
             if (a_request.m_routing_path.size() == 1 && m_guid_parser->isGuid(a_request.m_routing_path.at(0)))
             {
@@ -75,7 +75,7 @@ namespace ContentMetadataApi
             return nullptr; 
         }
 
-        std::unique_ptr<ICommand> ContentsCommandFactory::createDeleteCommand(const HttpRequest& a_request) const 
+        auto ContentsCommandFactory::createDeleteCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>
         { 
             if (a_request.m_routing_path.size() == 1 && m_guid_parser->isGuid(a_request.m_routing_path.at(0)))
             {

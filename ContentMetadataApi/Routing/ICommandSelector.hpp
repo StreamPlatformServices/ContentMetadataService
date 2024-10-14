@@ -13,7 +13,7 @@ namespace ContentMetadataApi
 		public:
 			virtual ~ICommandSelector() = default;
 
-			virtual std::unique_ptr<ICommand> selectHttpCommand(const HttpRequest& a_request) const = 0;
+			virtual auto selectHttpCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand> = 0;
 		};
 	}
 }

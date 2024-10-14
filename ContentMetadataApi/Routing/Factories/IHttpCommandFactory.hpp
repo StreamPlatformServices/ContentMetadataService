@@ -12,11 +12,11 @@ namespace ContentMetadataApi
 		public:
 			virtual ~IHttpCommandFactory() = default;
 
-			virtual std::unique_ptr<ICommand> createGetCommand(const HttpRequest& a_request) const = 0;
-			virtual std::unique_ptr<ICommand> createPostCommand(const HttpRequest& a_request) const = 0;
-			virtual std::unique_ptr<ICommand> createPutCommand(const HttpRequest& a_request) const = 0;
-			virtual std::unique_ptr<ICommand> createDeleteCommand(const HttpRequest& a_request) const = 0;
-			virtual std::unique_ptr<ICommand> createPatchCommand(const HttpRequest& a_request) const = 0;
+			virtual auto createGetCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand> = 0;
+			virtual auto createPostCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand> = 0;
+			virtual auto createPutCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand> = 0;
+			virtual auto createDeleteCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand> = 0;
+			virtual auto createPatchCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand> = 0;
 		};
 	}
 }

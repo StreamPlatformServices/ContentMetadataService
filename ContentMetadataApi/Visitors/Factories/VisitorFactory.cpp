@@ -15,17 +15,17 @@ namespace ContentMetadataApi
         {
         }
 
-        std::unique_ptr<IVisitor> VisitorFactory::createDataValidationVisitor(std::vector<std::string>& a_errors_output) const
+        auto VisitorFactory::createDataValidationVisitor(std::vector<std::string>& a_errors_output) const -> std::unique_ptr<IVisitor>
         {
             return std::make_unique<DataValidationVisitor>(a_errors_output, m_guid_parser);
         }
 
-        std::unique_ptr<IVisitor> VisitorFactory::createJsonDeserializationVisitor(const std::string& a_json_string_input) const
+        auto VisitorFactory::createJsonDeserializationVisitor(const std::string& a_json_string_input) const -> std::unique_ptr<IVisitor>
         {
             return std::make_unique<JsonDeserializationVisitor>(a_json_string_input, m_date_time_parser, m_guid_parser);
         }
 
-        std::unique_ptr<IVisitor> VisitorFactory::createJsonSerializationVisitor(std::string& a_json_string_output) const
+        auto VisitorFactory::createJsonSerializationVisitor(std::string& a_json_string_output) const -> std::unique_ptr<IVisitor>
         {
             return std::make_unique<JsonSerializationVisitor>(a_json_string_output, m_date_time_parser);
         }

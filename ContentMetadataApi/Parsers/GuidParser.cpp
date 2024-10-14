@@ -37,7 +37,7 @@ namespace ContentMetadataApi
             }
         }
 
-        boost::uuids::uuid GuidParser::parseGuid(const std::string& a_guid_string) const
+        auto GuidParser::parseGuid(const std::string& a_guid_string) const -> boost::uuids::uuid
         {
             try
             {

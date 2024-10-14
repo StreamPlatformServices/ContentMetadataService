@@ -20,9 +20,9 @@ namespace ContentMetadataApi
 			VisitorFactory& operator=(const VisitorFactory&) = delete;
 			VisitorFactory& operator=(VisitorFactory&&) = delete;
 			
-			std::unique_ptr<IVisitor> createDataValidationVisitor(std::vector<std::string>& a_errors_output) const override;
-			std::unique_ptr<IVisitor> createJsonDeserializationVisitor(const std::string& a_json_string_input) const override;
-			std::unique_ptr<IVisitor> createJsonSerializationVisitor(std::string& a_json_string_output) const override;
+			auto createDataValidationVisitor(std::vector<std::string>& a_errors_output) const -> std::unique_ptr<IVisitor> override;
+			auto createJsonDeserializationVisitor(const std::string& a_json_string_input) const -> std::unique_ptr<IVisitor> override;
+			auto createJsonSerializationVisitor(std::string& a_json_string_output) const -> std::unique_ptr<IVisitor> override;
 
 		private:
 			std::shared_ptr<ContentMetadataCommon::IDateTimeParser> m_date_time_parser;

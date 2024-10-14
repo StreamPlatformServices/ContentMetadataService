@@ -4,7 +4,7 @@ namespace ContentMetadataApi
 {
     HttpServer::HttpServer(
         std::unique_ptr<Mappers::IHttpDataMapper> a_http_data_mapper,
-        std::unique_ptr<Routing::ICommandSelector> a_command_selector)
+        std::unique_ptr<Routing::ICommandSelector> a_command_selector) 
         : m_ioc()
         , m_acceptor(m_ioc)
         , m_running(false)
@@ -48,11 +48,11 @@ namespace ContentMetadataApi
 
     void HttpServer::startAccept()
     {
-        m_acceptor.async_accept([this](boost::beast::error_code ec, boost::asio::ip::tcp::socket socket)
+        m_acceptor.async_accept([this](boost::beast::error_code a_ec, boost::asio::ip::tcp::socket a_socket)
             {
-                if (!ec && m_running)
+                if (!a_ec && m_running)
                 {
-                    boost::asio::co_spawn(m_ioc, handleRequest(std::move(socket)), boost::asio::detached);
+                    boost::asio::co_spawn(m_ioc, handleRequest(std::move(a_socket)), boost::asio::detached);
                 }
 
                 if (m_running)
@@ -62,7 +62,7 @@ namespace ContentMetadataApi
             });
     }
 
-    boost::asio::awaitable<void> HttpServer::handleRequest(boost::asio::ip::tcp::socket a_socket)
+    auto HttpServer::handleRequest(boost::asio::ip::tcp::socket a_socket) -> boost::asio::awaitable<void>
     {
         auto buffer = boost::beast::flat_buffer();
         auto request = boost::beast::http::request<boost::beast::http::string_body>();

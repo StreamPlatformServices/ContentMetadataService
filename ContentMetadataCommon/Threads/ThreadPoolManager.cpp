@@ -7,7 +7,7 @@ namespace ContentMetadataCommon
     {
     }
 
-    boost::asio::thread_pool& ThreadPoolManager::getThreadPool() noexcept
+    auto ThreadPoolManager::getThreadPool() noexcept -> boost::asio::thread_pool&
     {
         return m_pool;
     }

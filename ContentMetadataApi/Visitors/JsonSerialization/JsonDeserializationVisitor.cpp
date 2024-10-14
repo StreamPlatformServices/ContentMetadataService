@@ -80,7 +80,7 @@ namespace ContentMetadataApi
 		}
 
 
-		Dto::ContentDto JsonDeserializationVisitor::deserializeContent(const rapidjson::Value& content_json_value) const
+		auto JsonDeserializationVisitor::deserializeContent(const rapidjson::Value& content_json_value) const -> Dto::ContentDto
 		{
 			Dto::ContentDto result;
 
@@ -224,7 +224,7 @@ namespace ContentMetadataApi
 			return result;
 		}
 
-		Dto::ContentCommentDto JsonDeserializationVisitor::deserializeContentComment(const rapidjson::Value& content_comment_json_value) const
+		auto JsonDeserializationVisitor::deserializeContentComment(const rapidjson::Value& content_comment_json_value) const -> Dto::ContentCommentDto
 		{
 			Dto::ContentCommentDto result;
 
@@ -298,7 +298,7 @@ namespace ContentMetadataApi
 			return result;
 		}
 
-		Dto::LicenseRulesDto JsonDeserializationVisitor::deserializeLicenseRules(const rapidjson::Value& license_rules_json_value) const
+		auto JsonDeserializationVisitor::deserializeLicenseRules(const rapidjson::Value& license_rules_json_value) const -> Dto::LicenseRulesDto
 		{
 			Dto::LicenseRulesDto result;
 

@@ -20,8 +20,8 @@ namespace ContentMetadataApi
 			ContentDataMapper& operator=(const ContentDataMapper&) = delete;
 			ContentDataMapper& operator=(ContentDataMapper&&) = delete;
 
-			ContentMetadataCore::Entities::Content contentEntityFrom(const Dto::ContentDto& a_content_dto) const override;
-			Dto::ContentDto contentDtoFrom(const ContentMetadataCore::Entities::Content& a_content) const override;
+			auto contentEntityFrom(const Dto::ContentDto& a_content_dto) const -> ContentMetadataCore::Entities::Content override;
+			auto contentDtoFrom(const ContentMetadataCore::Entities::Content& a_content) const -> Dto::ContentDto override;
 
 		private:
 			std::shared_ptr<IContentCommentDataMapper>  m_content_comment_mapper;

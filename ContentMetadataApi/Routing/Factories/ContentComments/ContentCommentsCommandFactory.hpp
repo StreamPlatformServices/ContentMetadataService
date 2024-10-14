@@ -25,11 +25,11 @@ namespace ContentMetadataApi
 			ContentCommentsCommandFactory& operator=(const ContentCommentsCommandFactory&) = delete;
 			ContentCommentsCommandFactory& operator=(ContentCommentsCommandFactory&&) = delete;
 
-			std::unique_ptr<ICommand> createGetCommand(const HttpRequest& a_request) const override;
-			std::unique_ptr<ICommand> createPostCommand(const HttpRequest& a_request) const override;
-			std::unique_ptr<ICommand> createPutCommand(const HttpRequest& a_request) const override;
-			std::unique_ptr<ICommand> createDeleteCommand(const HttpRequest& a_request) const override;
-			std::unique_ptr<ICommand> createPatchCommand(const HttpRequest& a_request) const override;
+			auto createGetCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>  override;
+			auto createPostCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>  override;
+			auto createPutCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>  override;
+			auto createDeleteCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>  override;
+			auto createPatchCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>  override;
 
 		private:
 			std::shared_ptr<ContentMetadataCore::IContentCommentsContract> m_content_comments_contract;

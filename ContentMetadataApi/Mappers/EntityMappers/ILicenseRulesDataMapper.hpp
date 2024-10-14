@@ -13,8 +13,8 @@ namespace ContentMetadataApi
 		public:
 			virtual ~ILicenseRulesDataMapper() = default;
 
-			virtual ContentMetadataCore::Entities::LicenseRules licenseRulesEntityFrom(const Dto::LicenseRulesDto& a_license_rules_dto) const = 0;
-			virtual Dto::LicenseRulesDto licenseRulesDtoFrom(const ContentMetadataCore::Entities::LicenseRules& a_license_rules_entity) const = 0;
+			virtual auto licenseRulesEntityFrom(const Dto::LicenseRulesDto& a_license_rules_dto) const -> ContentMetadataCore::Entities::LicenseRules = 0;
+			virtual auto licenseRulesDtoFrom(const ContentMetadataCore::Entities::LicenseRules& a_license_rules_entity) const -> Dto::LicenseRulesDto = 0;
 
 		};
 	}

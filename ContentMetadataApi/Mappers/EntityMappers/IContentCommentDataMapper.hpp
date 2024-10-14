@@ -13,8 +13,8 @@ namespace ContentMetadataApi
 		public:
 			virtual ~IContentCommentDataMapper() = default;
 
-			virtual ContentMetadataCore::Entities::ContentComment contentCommentEntityFrom(const Dto::ContentCommentDto& a_content_comment_dto) const = 0;
-			virtual Dto::ContentCommentDto contentCommentDtoFrom(const ContentMetadataCore::Entities::ContentComment& a_content_comment_entity) const = 0;
+			virtual auto contentCommentEntityFrom(const Dto::ContentCommentDto& a_content_comment_dto) const -> ContentMetadataCore::Entities::ContentComment = 0;
+			virtual auto contentCommentDtoFrom(const ContentMetadataCore::Entities::ContentComment& a_content_comment_entity) const -> Dto::ContentCommentDto = 0;
 
 		};
 	}

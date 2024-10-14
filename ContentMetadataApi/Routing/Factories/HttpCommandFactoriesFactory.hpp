@@ -29,7 +29,7 @@ namespace ContentMetadataApi
 			HttpCommandFactoriesFactory& operator=(const HttpCommandFactoriesFactory&) = delete;
 			HttpCommandFactoriesFactory& operator=(HttpCommandFactoriesFactory&&) = delete;
 
-			std::unique_ptr<IHttpCommandFactory> createHttpCommandFactory(const std::string& a_root_endpoint) const override;
+			auto createHttpCommandFactory(const std::string& a_root_endpoint) const -> std::unique_ptr<IHttpCommandFactory> override;
 
 		private:
 			std::shared_ptr<ContentMetadataCore::IContentsContract> m_contents_contract;

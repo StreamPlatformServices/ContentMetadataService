@@ -59,17 +59,17 @@ namespace ContentMetadataApi
             }
         }
 
-        std::unordered_map<std::string, std::string> EndpointParser::getQueryParams() const noexcept
+        auto EndpointParser::getQueryParams() const noexcept -> std::unordered_map<std::string, std::string>
         {
             return m_query_params;
         }
 
-        std::vector<std::string> EndpointParser::getRoutingPath() const noexcept
+        auto EndpointParser::getRoutingPath() const noexcept -> std::vector<std::string>
         {
             return m_routing_path;
         }
 
-        std::string EndpointParser::getRootEndpoint() const noexcept
+        auto EndpointParser::getRootEndpoint() const noexcept -> std::string
         {
             return m_root_endpoint;
         }

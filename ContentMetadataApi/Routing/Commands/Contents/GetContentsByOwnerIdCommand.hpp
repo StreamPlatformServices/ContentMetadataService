@@ -24,7 +24,7 @@ namespace ContentMetadataApi
 			GetContentsByOwnerIdCommand& operator=(const GetContentsByOwnerIdCommand&) = delete;
 			GetContentsByOwnerIdCommand& operator=(GetContentsByOwnerIdCommand&&) = delete;
 
-			boost::asio::awaitable<HttpResponse> executeAsync() const override;
+			auto executeAsync() const -> boost::asio::awaitable<HttpResponse> override;
 
 		private:
 			const boost::uuids::uuid m_content_id;

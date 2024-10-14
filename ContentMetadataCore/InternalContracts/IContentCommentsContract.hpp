@@ -8,7 +8,7 @@ namespace ContentMetadataCore
     public:
         virtual ~IContentCommentsContract() = default;
 
-        virtual boost::asio::awaitable<boost::uuids::uuid> addContentCommentAsync(Entities::ContentComment& a_content_comment) = 0;
-        virtual boost::asio::awaitable<void> deleteContentCommentAsync(const boost::uuids::uuid& a_content_comment_id) = 0;
+        virtual auto addContentCommentAsync(Entities::ContentComment& a_content_comment) -> boost::asio::awaitable<boost::uuids::uuid> = 0;
+        virtual auto deleteContentCommentAsync(const boost::uuids::uuid& a_content_comment_id) -> boost::asio::awaitable<void> = 0;
     };
 }

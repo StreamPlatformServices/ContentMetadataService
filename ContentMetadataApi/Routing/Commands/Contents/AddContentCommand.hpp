@@ -24,8 +24,7 @@ namespace ContentMetadataApi
 			AddContentCommand& operator=(const AddContentCommand&) = delete;
 			AddContentCommand& operator=(AddContentCommand&&) = delete;
 
-
-			boost::asio::awaitable<HttpResponse> executeAsync() const override;
+			auto executeAsync() const -> boost::asio::awaitable<HttpResponse>  override;
 
 		private:
 			const std::string& m_request_body;

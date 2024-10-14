@@ -6,7 +6,7 @@ namespace ContentMetadataApi
 	namespace Mappers
 	{  
 
-        ContentMetadataCore::Entities::ContentComment ContentCommentDataMapper::contentCommentEntityFrom(const Dto::ContentCommentDto& a_content_comment_dto) const
+        auto ContentCommentDataMapper::contentCommentEntityFrom(const Dto::ContentCommentDto& a_content_comment_dto) const -> ContentMetadataCore::Entities::ContentComment
         {
             ContentMetadataCore::Entities::ContentComment content_comment_entity;
 
@@ -19,7 +19,7 @@ namespace ContentMetadataApi
             return content_comment_entity;
         }
 
-        Dto::ContentCommentDto ContentCommentDataMapper::contentCommentDtoFrom(const ContentMetadataCore::Entities::ContentComment& a_content_comment_entity) const
+        auto ContentCommentDataMapper::contentCommentDtoFrom(const ContentMetadataCore::Entities::ContentComment& a_content_comment_entity) const -> Dto::ContentCommentDto
         {
             Dto::ContentCommentDto content_comment_dto;
 

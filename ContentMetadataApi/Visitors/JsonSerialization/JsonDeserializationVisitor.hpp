@@ -39,9 +39,9 @@ namespace ContentMetadataApi
 			void visit(Dto::ContentsDto& a_visitable) override;
 
 		private:
-			Dto::ContentDto deserializeContent(const rapidjson::Value& a_content_json_value) const;
-			Dto::ContentCommentDto deserializeContentComment(const rapidjson::Value& a_content_comment_json_value) const;
-			Dto::LicenseRulesDto deserializeLicenseRules(const rapidjson::Value& a_license_rules_json_value) const;
+			auto deserializeContent(const rapidjson::Value& a_content_json_value) const -> Dto::ContentDto;
+			auto deserializeContentComment(const rapidjson::Value& a_content_comment_json_value) const -> Dto::ContentCommentDto;
+			auto deserializeLicenseRules(const rapidjson::Value& a_license_rules_json_value) const -> Dto::LicenseRulesDto;
 
 			bool isLicenseTypeEnumInRange(const int a_enum_int_value) const noexcept;
 			bool isLicenseDurationEnumInRange(const int a_enum_int_value) const noexcept;

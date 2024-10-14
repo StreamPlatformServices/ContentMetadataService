@@ -10,7 +10,7 @@ namespace ContentMetadataApi
         {
         }
 
-        HttpRequest HttpDataMapper::httpRequestFrom(const boost::beast::http::request<boost::beast::http::string_body>& a_request) const 
+        auto HttpDataMapper::httpRequestFrom(const boost::beast::http::request<boost::beast::http::string_body>& a_request) const -> HttpRequest
         {
             HttpRequest http_request;
             http_request.m_method = mapMethod(a_request.method());
@@ -26,7 +26,7 @@ namespace ContentMetadataApi
             return http_request;
         }
 
-        boost::beast::http::response<boost::beast::http::string_body> HttpDataMapper::BoostBeastResponseFrom(const HttpResponse& a_response) const
+        auto HttpDataMapper::BoostBeastResponseFrom(const HttpResponse& a_response) const -> boost::beast::http::response<boost::beast::http::string_body>
         {
             boost::beast::http::response<boost::beast::http::string_body> response;
             response.result(static_cast<boost::beast::http::status>(a_response.m_status_code));
@@ -40,7 +40,7 @@ namespace ContentMetadataApi
             return response;
         }
 
-        HttpMethod HttpDataMapper::mapMethod(boost::beast::http::verb a_method) const
+        auto HttpDataMapper::mapMethod(boost::beast::http::verb a_method) const -> HttpMethod
         {
             switch (a_method)
             {
@@ -57,7 +57,7 @@ namespace ContentMetadataApi
             }
         }
 
-        std::unordered_map<std::string, std::string> HttpDataMapper::mapHeaders(const boost::beast::http::request<boost::beast::http::string_body>& a_request) const
+        auto HttpDataMapper::mapHeaders(const boost::beast::http::request<boost::beast::http::string_body>& a_request) const -> std::unordered_map<std::string, std::string>
         {
             std::unordered_map<std::string, std::string> headers;
             for (const auto& field : a_request) 

@@ -15,7 +15,7 @@ namespace ContentMetadataApi
 		{
 		}
 
-		boost::asio::awaitable<HttpResponse> DeleteContentCommand::executeAsync() const
+		auto DeleteContentCommand::executeAsync() const -> boost::asio::awaitable<HttpResponse>
 		{
 			std::cout << "Start executing DeleteContentCommand." << std::endl;
 			HttpResponse response;

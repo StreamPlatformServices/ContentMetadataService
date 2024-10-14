@@ -11,7 +11,7 @@ namespace ContentMetadataApi
 		public:
 			virtual ~IHttpCommandFactoriesFactory() = default;
 
-			virtual std::unique_ptr<IHttpCommandFactory> createHttpCommandFactory(const std::string& a_root_endpoint) const = 0;
+			virtual auto createHttpCommandFactory(const std::string& a_root_endpoint) const -> std::unique_ptr<IHttpCommandFactory> = 0;
 		};
 	}
 }

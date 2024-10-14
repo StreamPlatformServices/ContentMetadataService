@@ -10,9 +10,9 @@ namespace ContentMetadataCommon
     public:
         explicit ThreadPoolManager(unsigned int a_num_threads);
 
-        boost::asio::thread_pool& getThreadPool() noexcept override;
+        auto getThreadPool() noexcept -> boost::asio::thread_pool& override;
 
-        void join(); //override;
+        void join();
 
     private:
         boost::asio::thread_pool m_pool;

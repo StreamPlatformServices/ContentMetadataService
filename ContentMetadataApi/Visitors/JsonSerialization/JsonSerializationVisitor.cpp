@@ -138,7 +138,7 @@ namespace ContentMetadataApi
             m_json_string = buffer.GetString();
         }
 
-        rapidjson::Value JsonSerializationVisitor::serializeFrom(Dto::ContentDto& a_content_dto, rapidjson::Document::AllocatorType& allocator) const
+        auto JsonSerializationVisitor::serializeFrom(Dto::ContentDto& a_content_dto, rapidjson::Document::AllocatorType& allocator) const -> rapidjson::Value
         {
             rapidjson::Value doc(rapidjson::kObjectType);
 
@@ -178,7 +178,7 @@ namespace ContentMetadataApi
             return doc;
         }
 
-        rapidjson::Value JsonSerializationVisitor::serializeFrom(Dto::ContentCommentDto& a_content_comment_dto, rapidjson::Document::AllocatorType& allocator) const
+        auto JsonSerializationVisitor::serializeFrom(Dto::ContentCommentDto& a_content_comment_dto, rapidjson::Document::AllocatorType& allocator) const -> rapidjson::Value
         {
             rapidjson::Value doc(rapidjson::kObjectType);
 
@@ -195,7 +195,7 @@ namespace ContentMetadataApi
             return doc;
         }
 
-        rapidjson::Value JsonSerializationVisitor::serializeFrom(Dto::LicenseRulesDto& a_license_rules_dto, rapidjson::Document::AllocatorType& allocator) const
+        auto JsonSerializationVisitor::serializeFrom(Dto::LicenseRulesDto& a_license_rules_dto, rapidjson::Document::AllocatorType& allocator) const -> rapidjson::Value
         {
             rapidjson::Value doc(rapidjson::kObjectType);
 

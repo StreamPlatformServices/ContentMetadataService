@@ -9,11 +9,11 @@ namespace ContentMetadataCore
     {
         struct LicenseRules
         {
-            boost::uuids::uuid m_uuid = boost::uuids::nil_uuid();
-            int m_price = 0;
-            Enums::LicenseType m_type = Enums::LicenseType::Unknown;
-            std::optional<Enums::LicenseDuration> m_duration;
-            boost::uuids::uuid m_content_id = boost::uuids::nil_uuid();
+            boost::uuids::uuid                     m_uuid = boost::uuids::nil_uuid();
+            int                                    m_price = 0;
+            Enums::LicenseType                     m_type = Enums::LicenseType::Unknown;
+            std::optional<Enums::LicenseDuration>  m_duration;
+            boost::uuids::uuid                     m_content_id = boost::uuids::nil_uuid();
         };
     }
 }

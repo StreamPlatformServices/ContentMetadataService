@@ -9,7 +9,7 @@ namespace ContentMetadataCommon
     public:
         virtual ~IThreadPoolManager() = default;
 
-        virtual boost::asio::thread_pool& getThreadPool() = 0;
+        virtual auto getThreadPool() -> boost::asio::thread_pool& = 0;
     };
 }
 

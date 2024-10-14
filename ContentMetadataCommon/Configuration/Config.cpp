@@ -72,8 +72,6 @@ namespace ContentMetadataCommon
         m_thread_pool_limit = ini[SERVER_SECTION][THREADS_LIMIT_FIELD].empty()
             ? thread_limit_default_value
             : std::stoi(ini[SERVER_SECTION][THREADS_LIMIT_FIELD]);
-
-        //log_level = ini[SERVER_SECTION]["log_level"].empty() ? "info" : ini[SERVER_SECTION]["log_level"]; //TODO:
     }
 
     void Config::printConfig() const noexcept
@@ -87,19 +85,15 @@ namespace ContentMetadataCommon
 
         std::cout << "\n[Server Config]" << std::endl;
         std::cout << "Server Port: " << m_server_port << std::endl;
-        std::cout << "Maximal threads in pool: " << m_thread_pool_limit << std::endl;
-
-        //std::cout << "Log Level: " << log_level << std::endl; //TODO:
+        std::cout << "Maximal threads in pool: " << m_thread_pool_limit << '\n' << std::endl;
     }
 
-    std::string Config::getDbUsername() const noexcept { return m_db_username; }
-    std::string Config::getDbPassword() const noexcept { return m_db_password; }
-    std::string Config::getDbHost() const noexcept { return m_db_host; }
+    auto Config::getDbUsername() const noexcept  -> std::string { return m_db_username; }
+    auto Config::getDbPassword() const noexcept -> std::string { return m_db_password; }
+    auto Config::getDbHost() const noexcept -> std::string { return m_db_host; }
+    auto Config::getDbName() const noexcept -> std::string { return m_db_name; }
     int Config::getDbPort() const noexcept { return m_db_port; }
-    std::string Config::getDbName() const noexcept { return m_db_name; }
 
     int Config::getServerPort() const noexcept { return m_server_port; }
     int Config::getThreadPoolLimit() const noexcept { return m_thread_pool_limit; }
-
-    //std::string Config::getLogLevel() const noexcept { return log_level; } //TODO:
 }

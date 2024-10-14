@@ -19,7 +19,7 @@ namespace ContentMetadataApi
 		{
 		}
 
-		boost::asio::awaitable<HttpResponse> GetContentByIdCommand::executeAsync() const
+		auto GetContentByIdCommand::executeAsync() const -> boost::asio::awaitable<HttpResponse>
 		{
 			std::cout << "Start executing GetContentByIdCommand" << std::endl;
 			HttpResponse response;

@@ -18,12 +18,12 @@ namespace ContentMetadataApi
         {
         }
 
-        std::unique_ptr<ICommand> ContentCommentsCommandFactory::createGetCommand(const HttpRequest& a_request) const
+        auto ContentCommentsCommandFactory::createGetCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>
         { 
             return nullptr; 
         }
 
-        std::unique_ptr<ICommand> ContentCommentsCommandFactory::createPostCommand(const HttpRequest& a_request) const 
+        auto ContentCommentsCommandFactory::createPostCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>
         { 
             if (a_request.m_routing_path.size() == 0)
             {
@@ -34,9 +34,9 @@ namespace ContentMetadataApi
             return nullptr;
         }
 
-        std::unique_ptr<ICommand> ContentCommentsCommandFactory::createPutCommand(const HttpRequest& a_request) const { return nullptr; }
+        auto ContentCommentsCommandFactory::createPutCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand> { return nullptr; }
 
-        std::unique_ptr<ICommand> ContentCommentsCommandFactory::createDeleteCommand(const HttpRequest& a_request) const 
+        auto ContentCommentsCommandFactory::createDeleteCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand>
         { 
             if (a_request.m_routing_path.size() == 1 && m_guid_parser->isGuid(a_request.m_routing_path.at(0)))
             {
@@ -48,6 +48,6 @@ namespace ContentMetadataApi
             return nullptr; 
         }
 
-        std::unique_ptr<ICommand> ContentCommentsCommandFactory::createPatchCommand(const HttpRequest& a_request) const { return nullptr; }
+        auto ContentCommentsCommandFactory::createPatchCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand> { return nullptr; }
     }
 }

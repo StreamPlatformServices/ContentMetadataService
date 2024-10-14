@@ -47,19 +47,19 @@ namespace ContentMetadataCommon
 		m_time_point = a_time_point;
 	}
 
-	std::chrono::system_clock::time_point  DateTimeParser::getTimePoint() noexcept
+	auto DateTimeParser::getTimePoint() noexcept -> std::chrono::system_clock::time_point
 	{ 
 		std::shared_lock lock(m_time_point_mutex);
 		return m_time_point; 
 	}
 
-	std::time_t  DateTimeParser::getTimeT() noexcept
+	auto DateTimeParser::getTimeT() noexcept -> std::time_t
 	{
 		std::shared_lock lock(m_time_point_mutex);
 		return std::chrono::system_clock::to_time_t(m_time_point);
 	}
 
-	std::string DateTimeParser::getIso8601String() noexcept
+	auto DateTimeParser::getIso8601String() noexcept -> std::string
 	{
 		auto time_t_value = getTimeT();
 
@@ -69,7 +69,7 @@ namespace ContentMetadataCommon
 		return oss.str();
 	}
 
-	std::string DateTimeParser::getPgSqlDatabaseFormat() noexcept
+	auto DateTimeParser::getPgSqlDatabaseFormat() noexcept -> std::string
 	{
 		auto time_t_value = getTimeT();
 		std::tm tm = *std::gmtime(&time_t_value);

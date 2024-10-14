@@ -8,11 +8,11 @@ namespace ContentMetadataCommon
     class IConfig
     {
     public:
-        virtual std::string getDbUsername() const noexcept = 0;
-        virtual std::string getDbPassword() const noexcept = 0;
-        virtual std::string getDbHost() const noexcept = 0;
+        virtual auto getDbUsername() const noexcept -> std::string = 0;
+        virtual auto getDbPassword() const noexcept -> std::string = 0;
+        virtual auto getDbHost() const noexcept -> std::string = 0;
+        virtual auto getDbName() const noexcept -> std::string = 0;
         virtual int getDbPort() const noexcept = 0;
-        virtual std::string getDbName() const noexcept = 0;
         
         virtual int getServerPort() const noexcept = 0;
         virtual int getThreadPoolLimit() const noexcept = 0;

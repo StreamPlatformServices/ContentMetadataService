@@ -13,7 +13,7 @@ namespace ContentMetadataApi
         {
         }
 
-        ContentMetadataCore::Entities::Content ContentDataMapper::contentEntityFrom(const Dto::ContentDto& a_content_dto) const
+        auto ContentDataMapper::contentEntityFrom(const Dto::ContentDto& a_content_dto) const -> ContentMetadataCore::Entities::Content
         {
             ContentMetadataCore::Entities::Content content_entity;
 
@@ -43,7 +43,7 @@ namespace ContentMetadataApi
             return content_entity;
         }
 
-        Dto::ContentDto ContentDataMapper::contentDtoFrom(const ContentMetadataCore::Entities::Content& a_content_entity) const
+        auto ContentDataMapper::contentDtoFrom(const ContentMetadataCore::Entities::Content& a_content_entity) const -> Dto::ContentDto
         {
             Dto::ContentDto content_dto;
 

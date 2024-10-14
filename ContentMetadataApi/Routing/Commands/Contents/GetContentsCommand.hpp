@@ -24,7 +24,7 @@ namespace ContentMetadataApi
 			GetContentsCommand& operator=(const GetContentsCommand&) = delete;
 			GetContentsCommand& operator=(GetContentsCommand&&) = delete;
 
-			boost::asio::awaitable<HttpResponse> executeAsync() const override;
+			auto executeAsync() const -> boost::asio::awaitable<HttpResponse>  override;
 
 		private:
 			bool getValueFromQueryParam(const std::string& a_key, int& a_value_out) const;

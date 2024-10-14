@@ -28,7 +28,7 @@ namespace ContentMetadataApi
         {
         }
 
-        std::unique_ptr<IHttpCommandFactory> HttpCommandFactoriesFactory::createHttpCommandFactory(const std::string& a_root_endpoint) const
+        auto HttpCommandFactoriesFactory::createHttpCommandFactory(const std::string& a_root_endpoint) const -> std::unique_ptr<IHttpCommandFactory>
         {
             if (a_root_endpoint == CONTENT_COMMENTS_ENDPOINT)
             {

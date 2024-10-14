@@ -8,19 +8,25 @@ namespace ContentMetadataApi
     class CONTENT_METADATA_API_EXPORT HttpServer 
     {
     public:
-        HttpServer(
+        explicit HttpServer(
             std::unique_ptr<Mappers::IHttpDataMapper> a_http_data_mapper,
             std::unique_ptr<Routing::ICommandSelector> a_command_selector);
 
+        HttpServer(const HttpServer&) = delete;
+        HttpServer(HttpServer&&) = delete;
+
+        HttpServer& operator=(const HttpServer&) = delete;
+        HttpServer& operator=(HttpServer&&) = delete;
+
         ~HttpServer();
 
-        void startServer(uint16_t port);
+        void startServer(uint16_t a_port);
 
         void stopServer();
 
     private:
         void startAccept();
-        boost::asio::awaitable<void> handleRequest(boost::asio::ip::tcp::socket socket);
+        auto handleRequest(boost::asio::ip::tcp::socket a_socket) -> boost::asio::awaitable<void>;
 
     private:
         boost::asio::io_context m_ioc;

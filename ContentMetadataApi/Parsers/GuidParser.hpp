@@ -17,7 +17,7 @@ namespace ContentMetadataApi
 
 			bool isGuid(const boost::uuids::uuid& uuid) const override;
 			bool isGuid(const std::string& a_guid_string) const override;
-			boost::uuids::uuid parseGuid(const std::string& a_guid_string) const override;
+			auto parseGuid(const std::string& a_guid_string) const -> boost::uuids::uuid  override;
 		};
 	}
 }

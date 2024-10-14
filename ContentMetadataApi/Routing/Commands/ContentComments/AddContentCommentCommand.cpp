@@ -19,7 +19,7 @@ namespace ContentMetadataApi
 		{
 		}
 
-		boost::asio::awaitable<HttpResponse> AddContentCommentCommand::executeAsync() const
+		auto AddContentCommentCommand::executeAsync() const -> boost::asio::awaitable<HttpResponse>
 		{
 			std::cout << "Start executing AddContentCommentCommand" << std::endl;
 

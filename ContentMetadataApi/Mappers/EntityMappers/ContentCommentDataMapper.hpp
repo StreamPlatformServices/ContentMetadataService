@@ -15,10 +15,8 @@ namespace ContentMetadataApi
 			ContentCommentDataMapper& operator=(const ContentCommentDataMapper&) = delete;
 			ContentCommentDataMapper& operator=(ContentCommentDataMapper&&) = delete;
 
-			ContentMetadataCore::Entities::ContentComment contentCommentEntityFrom(const Dto::ContentCommentDto& a_content_comment_dto) const override;
-			Dto::ContentCommentDto contentCommentDtoFrom(const ContentMetadataCore::Entities::ContentComment& a_content_comment_entity) const override;
-
+			auto contentCommentEntityFrom(const Dto::ContentCommentDto& a_content_comment_dto) const -> ContentMetadataCore::Entities::ContentComment override;
+			auto contentCommentDtoFrom(const ContentMetadataCore::Entities::ContentComment& a_content_comment_entity) const -> Dto::ContentCommentDto override;
 		};
-
 	}
 }

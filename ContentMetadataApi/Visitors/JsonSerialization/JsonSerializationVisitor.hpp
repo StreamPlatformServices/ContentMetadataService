@@ -37,9 +37,9 @@ namespace ContentMetadataApi
 			void visit(Dto::ContentsDto& a_visitable) override;
 
 		private:
-			rapidjson::Value serializeFrom(Dto::ContentDto& a_content_dto, rapidjson::Document::AllocatorType& a_allocator) const;
-			rapidjson::Value serializeFrom(Dto::ContentCommentDto& a_content_comment_dto, rapidjson::Document::AllocatorType& a_allocator) const;
-			rapidjson::Value serializeFrom(Dto::LicenseRulesDto& a_license_rules_dto, rapidjson::Document::AllocatorType& a_allocator) const;
+			auto serializeFrom(Dto::ContentDto& a_content_dto, rapidjson::Document::AllocatorType& a_allocator) const -> rapidjson::Value;
+			auto serializeFrom(Dto::ContentCommentDto& a_content_comment_dto, rapidjson::Document::AllocatorType& a_allocator) const -> rapidjson::Value;
+			auto serializeFrom(Dto::LicenseRulesDto& a_license_rules_dto, rapidjson::Document::AllocatorType& a_allocator) const -> rapidjson::Value;
 
 		private:
 			std::string& m_json_string;

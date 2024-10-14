@@ -5,7 +5,7 @@ namespace ContentMetadataApi
 {
 	namespace Mappers
 	{        
-        ContentMetadataCore::Entities::LicenseRules LicenseRulesDataMapper::licenseRulesEntityFrom(const Dto::LicenseRulesDto& a_license_rules_dto) const
+        auto LicenseRulesDataMapper::licenseRulesEntityFrom(const Dto::LicenseRulesDto& a_license_rules_dto) const -> ContentMetadataCore::Entities::LicenseRules
         {
             ContentMetadataCore::Entities::LicenseRules license_rules_entity;
 
@@ -17,7 +17,7 @@ namespace ContentMetadataApi
             return license_rules_entity;
         }
 
-        Dto::LicenseRulesDto LicenseRulesDataMapper::licenseRulesDtoFrom(const ContentMetadataCore::Entities::LicenseRules& a_license_rules_entity) const
+        auto LicenseRulesDataMapper::licenseRulesDtoFrom(const ContentMetadataCore::Entities::LicenseRules& a_license_rules_entity) const -> Dto::LicenseRulesDto
         {
             Dto::LicenseRulesDto license_rules_dto;
 

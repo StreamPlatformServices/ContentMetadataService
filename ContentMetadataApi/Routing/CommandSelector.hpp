@@ -17,7 +17,7 @@ namespace ContentMetadataApi
 			CommandSelector& operator=(const CommandSelector&) = delete;
 			CommandSelector& operator=(CommandSelector&&) = delete;
 
-			std::unique_ptr<ICommand> selectHttpCommand(const HttpRequest& a_request) const override;
+			auto selectHttpCommand(const HttpRequest& a_request) const -> std::unique_ptr<ICommand> override;
 
 		private:
 			std::shared_ptr<IHttpCommandFactoriesFactory> m_http_command_factories_factory;

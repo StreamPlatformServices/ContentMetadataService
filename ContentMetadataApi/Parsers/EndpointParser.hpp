@@ -16,9 +16,9 @@ namespace ContentMetadataApi
 			EndpointParser& operator=(EndpointParser&&) = delete;
 
             void parseEndpoint(const std::string& a_endpoint) override;
-            std::unordered_map<std::string, std::string> getQueryParams() const noexcept override;
-            std::vector<std::string> getRoutingPath() const noexcept override;
-			std::string getRootEndpoint() const noexcept override;
+            auto getQueryParams() const noexcept -> std::unordered_map<std::string, std::string>  override;
+            auto getRoutingPath() const noexcept -> std::vector<std::string> override;
+			auto getRootEndpoint() const noexcept -> std::string override;
 
         private:
             void parseRoutingPath(const std::string& a_path);

@@ -11,7 +11,7 @@ namespace ContentMetadataApi
 		public:
 			virtual ~ICommand() = default;
 
-			virtual boost::asio::awaitable<HttpResponse> executeAsync() const = 0;
+			virtual auto executeAsync() const -> boost::asio::awaitable<HttpResponse> = 0;
 		};
 	}
 }

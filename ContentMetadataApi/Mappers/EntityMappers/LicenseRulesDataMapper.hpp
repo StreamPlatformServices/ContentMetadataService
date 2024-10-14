@@ -15,9 +15,8 @@ namespace ContentMetadataApi
 			LicenseRulesDataMapper& operator=(const LicenseRulesDataMapper&) = delete;
 			LicenseRulesDataMapper& operator=(LicenseRulesDataMapper&&) = delete;
 
-
-			ContentMetadataCore::Entities::LicenseRules licenseRulesEntityFrom(const Dto::LicenseRulesDto& a_license_rules_dto) const override;
-			Dto::LicenseRulesDto licenseRulesDtoFrom(const ContentMetadataCore::Entities::LicenseRules& a_license_rules_entity) const override;
+			auto licenseRulesEntityFrom(const Dto::LicenseRulesDto& a_license_rules_dto) const -> ContentMetadataCore::Entities::LicenseRules override;
+			auto licenseRulesDtoFrom(const ContentMetadataCore::Entities::LicenseRules& a_license_rules_entity) const -> Dto::LicenseRulesDto override;
 		};
 	}
 }
