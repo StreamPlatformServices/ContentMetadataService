@@ -26,6 +26,15 @@ target_link_libraries(ContentMetadataRepository_Tests
 
 add_test(NAME ContentMetadataRepository_Tests COMMAND ContentMetadataRepository_Tests)
 
+install(TARGETS ContentMetadataRepository_Tests
+    RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataRepository_Tests"
+)
+
+install(FILES "$<TARGET_PDB_FILE:ContentMetadataRepository_Tests>"
+    DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataRepository_Tests"
+    OPTIONAL
+)
+
 install(TARGETS ContentMetadataRepository
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataRepository_Tests"
 )

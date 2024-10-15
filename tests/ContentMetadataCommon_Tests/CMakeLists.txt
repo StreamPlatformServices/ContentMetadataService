@@ -21,5 +21,12 @@ target_link_libraries(ContentMetadataCommon_Tests
 
 add_test(NAME ContentMetadataCommon_Tests COMMAND ContentMetadataCommon_Tests)
 
+install(TARGETS ContentMetadataCommon_Tests
+    RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataCommon_Tests"
+)
 
+install(FILES "$<TARGET_PDB_FILE:ContentMetadataCommon_Tests>"
+    DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataCommon_Tests"
+    OPTIONAL
+)
 

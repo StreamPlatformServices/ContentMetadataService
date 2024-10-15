@@ -23,6 +23,16 @@ target_link_libraries(ContentMetadataApi_Tests
 
 add_test(NAME ContentMetadataApi_Tests COMMAND ContentMetadataApi_Tests)
 
+
+install(TARGETS ContentMetadataApi_Tests
+    RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataApi_Tests"
+)
+
+install(FILES "$<TARGET_PDB_FILE:ContentMetadataApi_Tests>"
+    DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataApi_Tests"
+    OPTIONAL
+)
+
 install(TARGETS ContentMetadataApi
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataApi_Tests"
 )

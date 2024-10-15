@@ -53,11 +53,21 @@ link_directories("${CMAKE_BINARY_DIR}/external/src")
 
 
 
-install(TARGETS ContentMetadataApi
+# Install the ContentMetadataService executable
+install(TARGETS ContentMetadataService
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}"
 )
 
 # Install the .pdb files (symbols for debugging)
+install(FILES "$<TARGET_PDB_FILE:ContentMetadataService>"
+    DESTINATION "${CMAKE_BINARY_DIR}"
+    OPTIONAL
+)
+
+install(TARGETS ContentMetadataApi
+    RUNTIME DESTINATION "${CMAKE_BINARY_DIR}"
+)
+
 install(FILES "$<TARGET_PDB_FILE:ContentMetadataApi>"
     DESTINATION "${CMAKE_BINARY_DIR}"
     OPTIONAL
