@@ -1,6 +1,7 @@
 #pragma once
 #include "IDateTimeParser.hpp"
 #include <shared_mutex>
+#include <mutex>
 
 namespace ContentMetadataCommon
 {
