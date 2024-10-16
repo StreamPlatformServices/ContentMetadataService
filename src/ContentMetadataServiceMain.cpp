@@ -28,6 +28,7 @@
 * 1. Change pqxx library to pqlib, use async couritine, remove redundant thread pool, and add pg sql connections limit in configuration
 * 2. Use async spdlog for logging
 * 3. Use different content's dto's for response and request (there is no use for comments in content stucture while adding content)
+* 4. Clear warnings.
 */
 
 namespace
