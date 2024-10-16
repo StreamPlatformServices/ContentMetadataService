@@ -3,6 +3,8 @@
 #include "../../ContentMetadataCommon/Configuration/IConfig.hpp"
 #include "../../ContentMetadataCommon/Threads/IThreadPoolManager.hpp"
 #include "Repositories/IRepositoryFactory.hpp"
+#include <shared_mutex>
+#include <mutex>
 
 namespace ContentMetadataRepository
 {
