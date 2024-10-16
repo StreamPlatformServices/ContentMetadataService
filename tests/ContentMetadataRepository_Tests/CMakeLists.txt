@@ -30,16 +30,18 @@ install(TARGETS ContentMetadataRepository_Tests
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataRepository_Tests"
 )
 
-install(FILES "$<TARGET_PDB_FILE:ContentMetadataRepository_Tests>"
-    DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataRepository_Tests"
-    OPTIONAL
-)
-
 install(TARGETS ContentMetadataRepository
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataRepository_Tests"
 )
 
-install(FILES "$<TARGET_PDB_FILE:ContentMetadataRepository>"
-    DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataRepository_Tests"
-    OPTIONAL
-)
+if(WIN32)
+    install(FILES "$<TARGET_PDB_FILE:ContentMetadataRepository_Tests>"
+        DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataRepository_Tests"
+        OPTIONAL
+    )
+
+    install(FILES "$<TARGET_PDB_FILE:ContentMetadataRepository>"
+        DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataRepository_Tests"
+        OPTIONAL
+    )
+endif()

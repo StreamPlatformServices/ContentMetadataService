@@ -58,28 +58,28 @@ install(TARGETS ContentMetadataService
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}"
 )
 
-# Install the .pdb files (symbols for debugging)
-install(FILES "$<TARGET_PDB_FILE:ContentMetadataService>"
-    DESTINATION "${CMAKE_BINARY_DIR}"
-    OPTIONAL
-)
-
 install(TARGETS ContentMetadataApi
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}"
-)
-
-install(FILES "$<TARGET_PDB_FILE:ContentMetadataApi>"
-    DESTINATION "${CMAKE_BINARY_DIR}"
-    OPTIONAL
 )
 
 install(TARGETS ContentMetadataRepository
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}"
 )
 
-install(FILES "$<TARGET_PDB_FILE:ContentMetadataRepository>"
-    DESTINATION "${CMAKE_BINARY_DIR}"
-    OPTIONAL
-)
+if(WIN32)
+# Install the .pdb files (symbols for debugging)
+    install(FILES "$<TARGET_PDB_FILE:ContentMetadataService>"
+        DESTINATION "${CMAKE_BINARY_DIR}"
+        OPTIONAL
+    )
 
-message("CMAKE_BINARY_DIR is set to: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+    install(FILES "$<TARGET_PDB_FILE:ContentMetadataApi>"
+        DESTINATION "${CMAKE_BINARY_DIR}"
+        OPTIONAL
+    )
+
+    install(FILES "$<TARGET_PDB_FILE:ContentMetadataRepository>"
+        DESTINATION "${CMAKE_BINARY_DIR}"
+        OPTIONAL
+    )
+endif()

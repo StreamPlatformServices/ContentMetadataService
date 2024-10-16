@@ -25,8 +25,9 @@ install(TARGETS ContentMetadataCommon_Tests
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataCommon_Tests"
 )
 
-install(FILES "$<TARGET_PDB_FILE:ContentMetadataCommon_Tests>"
-    DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataCommon_Tests"
-    OPTIONAL
-)
-
+if(WIN32)
+    install(FILES "$<TARGET_PDB_FILE:ContentMetadataCommon_Tests>"
+        DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataCommon_Tests"
+        OPTIONAL
+    )
+endif()

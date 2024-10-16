@@ -28,19 +28,20 @@ install(TARGETS ContentMetadataApi_Tests
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataApi_Tests"
 )
 
-install(FILES "$<TARGET_PDB_FILE:ContentMetadataApi_Tests>"
-    DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataApi_Tests"
-    OPTIONAL
-)
-
 install(TARGETS ContentMetadataApi
     RUNTIME DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataApi_Tests"
 )
 
-install(FILES "$<TARGET_PDB_FILE:ContentMetadataApi>"
-    DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataApi_Tests"
-    OPTIONAL
-)
+if(WIN32)
+    install(FILES "$<TARGET_PDB_FILE:ContentMetadataApi_Tests>"
+        DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataApi_Tests"
+        OPTIONAL
+    )
 
+    install(FILES "$<TARGET_PDB_FILE:ContentMetadataApi>"
+        DESTINATION "${CMAKE_BINARY_DIR}/tests/ContentMetadataApi_Tests"
+        OPTIONAL
+    )
+endif()
 
 
