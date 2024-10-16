@@ -6,6 +6,10 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
+if(UNIX)
+  set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif()
+
 project("ContentMetadataService")
 
 # Set the C++ standard globally
@@ -31,6 +35,8 @@ add_executable(ContentMetadataService ${EXECUTABLE_FILES})
 
 target_compile_definitions(ContentMetadataService PRIVATE BUILD_CONTENT_METADATA_SERVICE)
 
+find_package(PostgreSQL REQUIRED)
+
 # Add the shared include and external directory 
 target_include_directories(ContentMetadataService PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
@@ -49,7 +55,7 @@ link_directories("${CMAKE_BINARY_DIR}/ContentMetadataCommon")
 link_directories("${CMAKE_BINARY_DIR}/ContentMetadataCore")
 link_directories("${CMAKE_BINARY_DIR}/ContentMetadataApi")
 link_directories("${CMAKE_BINARY_DIR}/ContentMetadataRepository")
-link_directories("${CMAKE_BINARY_DIR}/external/src")
+#link_directories("${CMAKE_BINARY_DIR}/external/src")
 
 
 
