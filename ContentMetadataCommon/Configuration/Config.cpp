@@ -6,9 +6,7 @@
 namespace
 {
     constexpr auto DATABASE_SECTION = "database";
-    constexpr auto TEST_DATABASE_SECTION = "test_database";
     constexpr auto SERVER_SECTION = "server";
-    constexpr auto GENERAL_SECTION = "general";
 
     constexpr auto DB_NAME_FIELD = "dbname";
     constexpr auto USER_NAME_FIELD = "username";
@@ -24,42 +22,36 @@ namespace
     constexpr auto DB_PORT_DEFAULT_VALUE = 5432;
     constexpr auto SERVER_PORT_DEFAULT_VALUE = 5050;
     constexpr auto THREADS_LIMIT_PROC_CORES_MULTIPLICATION = 2u;
-
-    constexpr auto DB_TEST_NAME_DEFAULT_VALUE = "ContentMetadataTest";
-
-    constexpr auto USE_TEST_DB_FIELD = "use_test_db";
 }
 
 namespace ContentMetadataCommon
 {
-    Config::Config(const std::string& a_filename, bool a_use_test_db)
+    Config::Config(const std::string& a_filename)
     {
         mINI::INIFile file(a_filename);
         mINI::INIStructure ini;
         file.read(ini);
 
-        const std::string& db_section = a_use_test_db ? TEST_DATABASE_SECTION : DATABASE_SECTION;
-
-        //[database or test_database]
-        m_db_username = ini[db_section][USER_NAME_FIELD].empty()
+        //[database]
+        m_db_username = ini[DATABASE_SECTION][USER_NAME_FIELD].empty()
             ? DB_USER_NAME_DEFAULT_VALUE
-            : ini[db_section][USER_NAME_FIELD];
+            : ini[DATABASE_SECTION][USER_NAME_FIELD];
 
-        m_db_password = ini[db_section][PASSWORD_FIELD].empty()
+        m_db_password = ini[DATABASE_SECTION][PASSWORD_FIELD].empty()
             ? DB_PASSWORD_DEFAULT_VALUE
-            : ini[db_section][PASSWORD_FIELD];
+            : ini[DATABASE_SECTION][PASSWORD_FIELD];
 
-        m_db_host = ini[db_section][HOST_FIELD].empty()
+        m_db_host = ini[DATABASE_SECTION][HOST_FIELD].empty()
             ? DB_HOST_DEFAULT_VALUE
-            : ini[db_section][HOST_FIELD];
+            : ini[DATABASE_SECTION][HOST_FIELD];
 
-        m_db_port = ini[db_section][PORT_FIELD].empty()
+        m_db_port = ini[DATABASE_SECTION][PORT_FIELD].empty()
             ? DB_PORT_DEFAULT_VALUE
-            : std::stoi(ini[db_section][PORT_FIELD]);
+            : std::stoi(ini[DATABASE_SECTION][PORT_FIELD]);
 
-        m_db_name = ini[db_section][DB_NAME_FIELD].empty()
-            ? (a_use_test_db ? DB_TEST_NAME_DEFAULT_VALUE : DB_NAME_DEFAULT_VALUE)
-            : ini[db_section][DB_NAME_FIELD];
+        m_db_name = ini[DATABASE_SECTION][DB_NAME_FIELD].empty()
+            ? DB_NAME_DEFAULT_VALUE
+            : ini[DATABASE_SECTION][DB_NAME_FIELD];
 
         //[server]
         m_server_port = ini[SERVER_SECTION][PORT_FIELD].empty()

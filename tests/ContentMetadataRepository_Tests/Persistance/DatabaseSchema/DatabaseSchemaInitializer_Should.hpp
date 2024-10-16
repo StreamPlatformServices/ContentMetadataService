@@ -15,7 +15,7 @@ namespace ContentMetadataRepository_Tests
 
         void SetUp() override
         {
-            m_config = std::make_shared<ContentMetadataCommon::Config>("test_config.ini", true);
+            m_config = std::make_shared<ContentMetadataCommon::Config>("config.ini");
 
             std::string conn_str = std::format(
                 "dbname={} user={} password={} host={} port={}",

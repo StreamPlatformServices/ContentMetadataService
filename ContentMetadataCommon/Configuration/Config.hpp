@@ -5,7 +5,7 @@ namespace ContentMetadataCommon
     class Config : public IConfig
     {
     public:
-        explicit Config(const std::string& filename, bool a_use_test_db = false);
+        explicit Config(const std::string& filename);
 
         void printConfig() const noexcept;
 

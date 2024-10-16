@@ -26,7 +26,7 @@ namespace ContentMetadataRepository_Tests
 
         void SetUp() override
         {
-            m_config = std::make_shared<ContentMetadataCommon::Config>("config.ini", true);
+            m_config = std::make_shared<ContentMetadataCommon::Config>("config.ini");
             m_test_transaction_id = boost::uuids::random_generator()();
             m_thread_pool_manager_mock = std::make_shared<::testing::NiceMock<Mocks::ThreadPoolManagerMock>>();
             m_repository_factory_mock = new ::testing::NiceMock<Mocks::RepositoryFactoryMock>();

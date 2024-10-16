@@ -27,7 +27,7 @@ namespace ContentMetadataRepository_Tests
         {
             m_thread_pool_manager_mock = std::make_shared<::testing::NiceMock<Mocks::ThreadPoolManagerMock>>();
 
-            m_config = std::make_shared<ContentMetadataCommon::Config>("test_config.ini", true);
+            m_config = std::make_shared<ContentMetadataCommon::Config>("config.ini");
             ContentMetadataRepository::DatabaseSchemaInitializer schema_initializer(m_config);
             schema_initializer.createContentMetadataTables();
 
