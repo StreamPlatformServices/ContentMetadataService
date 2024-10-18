@@ -1,18 +1,18 @@
 # ContentMetadataService
 
-ContentMetadataService provides a way to manage metadata for various types of content and is a critical component of a larger streaming platform system. It interacts with a PostgreSQL database to store and retrieve metadata efficiently. The service can be built using CMake and supports both Linux/macOS and Windows platforms. It also includes a configuration system that allows you to adjust database connections and server settings through a `config.ini` file.
+ContentMetadataService provides a way to manage metadata for various types of content and is a critical component of a larger streaming platform system. It interacts with a PostgreSQL database to store and retrieve metadata efficiently. The service can be built using CMake and supports both Linux and Windows platforms. It also includes a configuration system that allows you to adjust database connections and server settings through a `config.ini` file.
 
 This README will guide you through the process of cloning the repository, building the project, configuring PostgreSQL, and setting up the necessary environment to run the service.
 
-For more details on the structure and functionality of the service, please refer to the accompanying [documentation](link-to-documentation), which explains the architecture and key components in depth.
+For more details on the structure and functionality of the service, please refer to the accompanying [documentation](./Documentation/ContentMetadataService_Documentation.md), which explains the architecture and key components in depth.
 
 ## Table of Contents
 
 - [Requirements](#requirements)
 - [Cloning the repository](#cloning-the-repository)
 - [Building the project](#building-the-project)
-  - [Windows (Visual Studio)](#windows-visual-studio)
-  - [Linux/macOS](#linuxmacos)
+  - [Windows](#windows)
+  - [Linux](#linux)
 - [PostgreSQL Configuration](#postgresql-configuration)
 - [Configuring the `config.ini` file](#configuring-the-configini-file)
 - [Running Content Metadata Service](#running-content-metadata-service)
